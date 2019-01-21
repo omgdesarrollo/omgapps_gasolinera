@@ -16,13 +16,17 @@ $pojo= new TemaPojo();
 $daoAsignacionTemaRequisito= new AsignacionTemaRequisitoDAO();
 switch ($Op) {
 	case 'Listar':
-            $Lista=$model->mostrarTemas("catalogo", Session::getSesion("s_cont"));
-            foreach($Lista as $value){  
-//                echo json_encode( $value);
-                $existeTemasAndSubtema=$daoAsignacionTemaRequisito->verificarSiExistenTemasSubtemasandEnTemaRequisito(array("id_tema_and_subtema"=>$value[0]));
-                  if($existeTemasAndSubtema[0]["cantidad"]==0){
-                       $daoAsignacionTemaRequisito->insertarTemasSubtemasSiNoExitenEnTemaRequisito(array("id_tema_and_sub"=>$value[0]));
-                  }
+            $Lista=$model->mostrarTemas("catalogo",Session::getSesion("s_cont"));
+            if($Lista!=""){
+                foreach($Lista as $value){  
+    //                echo json_encode( $value);
+                    $existeTemasAndSubtema=$daoAsignacionTemaRequisito->verificarSiExistenTemasSubtemasandEnTemaRequisito(array("id_tema_and_subtema"=>$value[0]));
+                      if($existeTemasAndSubtema[0]["cantidad"]==0){
+                           $daoAsignacionTemaRequisito->insertarTemasSubtemasSiNoExitenEnTemaRequisito(array("id_tema_and_sub"=>$value[0]));
+                      }
+                }
+            }else{
+               $Lista=""; 
             }
             
             header('Content-type: application/json; charset=utf-8'); 
@@ -31,7 +35,7 @@ switch ($Op) {
          break;
 	case 'ListarHijos':
             
-            $Lista= $model->listarHijos("catalogo", Session::getSesion("s_cont"), $_REQUEST['ID']);
+            $Lista= $model->listarHijos("catalogo",Session::getSesion("s_cont"), $_REQUEST['ID']);
             header('Content-type: application/json; charset=utf-8'); 
             echo json_encode($Lista);
             return $Lista;
@@ -61,7 +65,7 @@ switch ($Op) {
                 
 		# code...
 //                $json = json_decode($_POST['json']);//linea donde convierte el json string a objeto  proxima mejora
-                $Lista= $model->insertarNodo($_REQUEST['NO'],$_REQUEST['NOMBRE'],$_REQUEST['DESCRIPCION'],$_REQUEST['PLAZO'],$_REQUEST['NODO'],$_REQUEST['ID_EMPLEADOMODAL'],"catalogo", Session::getSesion("s_cont"),$ES_TEMA_OR_SUBTEMA,$DATOS_GENERALES);
+                $Lista= $model->insertarNodo($_REQUEST['NO'],$_REQUEST['NOMBRE'],$_REQUEST['DESCRIPCION'],$_REQUEST['PLAZO'],$_REQUEST['NODO'],$_REQUEST['ID_EMPLEADOMODAL'],"catalogo",Session::getSesion("s_cont"),$ES_TEMA_OR_SUBTEMA,$DATOS_GENERALES);
                 header('Content-type: application/json; charset=utf-8'); 
                 echo json_encode($Lista);
 //                echo "con se ". Session::getSesion("s_cont");

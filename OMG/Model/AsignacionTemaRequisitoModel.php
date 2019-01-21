@@ -107,12 +107,12 @@ class AsignacionTemaRequisitoModel {
 //                    $htmlFrontend=$valuet["registro"];
                     $htmlFrontend.="<tr><td class='info'>Registro</td><td contenteditable='false' onClick='showEdit(this)' onBlur=\"saveToDatabaseRegistros(this,'registro',".$valuet['id_registro'].")\">".$valuet['registro']."</td></tr>";
                     $htmlFrontend.="<tr><td class='info'>Frecuencia</td><td>".$valuet['frecuencia']."</td></tr>";                    
-                    $htmlFrontend.="<tr><td class='info'>Clave del Documento</td><td>".$valuet['clave_documento']."</td></tr>";
+//                    $htmlFrontend.="<tr><td class='info'>Clave del Documento</td><td>".$valuet['clave_documento']."</td></tr>";
                     if($valuet["documento"]!="")
                     $htmlFrontend.="<tr><td class='info'>Documento</td><td>".$valuet['documento']."</td></tr>";
-                    else
-                    $htmlFrontend.="<tr><td class='info'>Documento</td><td>SIN DOCUMENTO</td></tr>";
-                    $htmlFrontend.="<tr><td class='info'>Responsable</td><td>".$valuet['nombrecompleto']."</td></tr>";
+//                    else
+//                    $htmlFrontend.="<tr><td class='info'>Documento</td><td>SIN DOCUMENTO</td></tr>";
+//                    $htmlFrontend.="<tr><td class='info'>Responsable</td><td>".$valuet['nombrecompleto']."</td></tr>";
                    
                 }
                 $htmlFrontend.="</table></div>";
@@ -165,25 +165,37 @@ class AsignacionTemaRequisitoModel {
            return -1;
        }
    }
-   
-   
-    
-
     public function insertar($pojo){
         try{
             $dao=new AsignacionTemaRequisitoDAO();
 //            $pojo=new EmpleadoPojo();
-            
            $dao->insertarAsignacionTemaRequisito($pojo->getId_clausula(),$pojo->getRequisito(),$pojo->getId_Documento());
         } catch (Exception $ex) {
                 throw $ex;
         }
     }
     public function actualizarRegistro($data){
-        
         try{
             $dao= new AsignacionTemaRequisitoDAO();
-            return $dao->actualizarRegistro($data);
+            $requisito=$dao->obtenerIdRequisitoPadreDelRegistro($data);
+            $model= new AsignacionTemaRequisitoModel();
+            $listaderegistros= $model->obtenerLosRegistrosDentroDeRequisitos(array("id_requisito"=>$requisito[0]["id_requisito"]));
+            
+            $existe_registro_repetido=0;;
+            
+            foreach ($listaderegistros as $value) {
+                if($value["registro"]==$data["registro"]){
+                    $existe_registro_repetido++;
+                }
+              
+            }
+            
+            
+            if($existe_registro_repetido==0){
+                return $dao->actualizarRegistro($data);
+            }else{
+                return false;
+            }
         } catch (Exception $ex) {
                 throw $ex;
                 return -1;
@@ -198,6 +210,8 @@ class AsignacionTemaRequisitoModel {
         try
         {
             $dao=new AsignacionTemaRequisitoDAO();
+            
+            
             $rec= $dao->insertarRequisito($requisito,$penalizacion);
             $ID_REQUISITO= $dao->obtenerMaximoRequisito();
             $resultado= $dao->insertarRequisitoTablaCompuesta($ID_ASIGNACION, $ID_REQUISITO);
@@ -225,18 +239,38 @@ class AsignacionTemaRequisitoModel {
         try
         {
             $dao=new AsignacionTemaRequisitoDAO($ID_REQUISITO,$registro,$id_documento);
-            $rec= $dao->insertarRegistro($registro,$id_documento,$frecuencia);
-            $ID_REGISTRO= $dao->obtenerMaximoRegistro();
-            $resultado= $dao->insertarRegistroTablaCompuesta($ID_REQUISITO, $ID_REGISTRO);
-            
+            $model= new AsignacionTemaRequisitoModel();
             $datoRegistro="";
-            if($rec==true && $resultado==true)
-            {
-                $datoRegistro=true;
-            }else{
-                $datoRegistro=false;
-            }
+            //star obtener los registros dentro de los requisitos
+            $listaderegistros=$model->obtenerLosRegistrosDentroDeRequisitos(array("id_requisito"=>$ID_REQUISITO));
             
+            $existe_registro_repetido=0;;
+            
+            foreach ($listaderegistros as $value) {
+                if($value["registro"]==$registro){
+                    $existe_registro_repetido++;
+                }
+              
+            }
+            //end obtener registros dentro de los requisitos
+            
+            if($existe_registro_repetido==0){
+                $rec= $dao->insertarRegistro($registro,$id_documento,$frecuencia);
+                $ID_REGISTRO= $dao->obtenerMaximoRegistro();
+                $resultado= $dao->insertarRegistroTablaCompuesta($ID_REQUISITO, $ID_REGISTRO);
+
+               
+                if($rec==true && $resultado==true)
+                {
+                    $datoRegistro=true;
+                }else{
+                    $datoRegistro=false;
+                }
+            
+            
+            }else{
+                $datoRegistro="registro_repetido";
+            }
 //            echo "valor final: ".json_encode($datoRegistro);
             return $datoRegistro;
         } catch (Exception $ex)
@@ -369,4 +403,19 @@ class AsignacionTemaRequisitoModel {
         }
         
     }
+    //function que se encarga de obtener los registros que estan dentro de requisitos
+    public function obtenerLosRegistrosDentroDeRequisitos($value){
+        
+        
+        try{
+             $dao=new AsignacionTemaRequisitoDAO();
+             return $dao->obtenerLosRegistrosDentroDeRequisitos($value);
+             
+        } catch (Exception $ex) {
+
+        }
+    }
+    
+    
+    
 }

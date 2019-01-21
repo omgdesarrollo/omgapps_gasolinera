@@ -126,34 +126,39 @@ $Usuario=  Session::getSesion("user");
       <!--<form id="formRegistro">-->   
           <div class="form-group">
               <label class="control-label" for="title">Registro</label>
-              <textarea  id="REGISTRO" class="form-control" data-error="Ingrese la Descripcion del Sub-Tema" required></textarea>
+              <!--<textarea  id="REGISTRO" class="form-control" data-error="Ingrese la Descripcion del Sub-Tema" required></textarea>-->
+              <select id="REGISTRO" >
+                  <option value="MAGNA">MAGNA</option>
+                  <option value="DIESEL">DIESEL</option>
+                  <option value="PREMIUM">PREMIUM</option>
+              </select>
               <div class="help-block with-errors"></div>
           </div>                                                                                                                          
 
-          <div class="form-group">
+<!--          <div class="form-group">
               <label class="control-label">Clave/Descripcion: </label>
-<!--                            <div id='comboclave_descripcion'  ></div>-->
               <div class="dropdown">
                   <input onBlur="registroClaveEscritura()" style="width:100%" type="text" class="dropdown-toggle" 
                   id="CLAVEESCRITURA_AGREGARREGISTRO" data-toggle="dropdown" onKeyup="buscarDocumento(this)" autocomplete="off"/>
                   <ul style="width:100%;cursor:pointer;" class="dropdown-menu" id="dropdownEvent" role="menu" 
                   aria-labelledby="menu1"></ul>
               </div>
-          </div>
-          <div class="form-group">
+          </div>-->
+         <div class="form-group" style="display: none">
               <label class="control-label">Frecuencia: </label>
               <select id="selectFrecuencia" >
+                  <option value="INDEFINIDO">INDEFINIDO</option>
                   <option value="ANUAL">ANUAL</option>
                   <option value="BIMESTRAL">BIMESTRAL</option>
                   <option value="DIARIO">DIARIO</option>
-                  <option value="INDEFINIDO">INDEFINIDO</option>
+<!--                  <option value="INDEFINIDO">INDEFINIDO</option>-->
                   <option value="MENSUAL">MENSUAL</option>
                   <option value="POR EVENTO">POR EVENTO</option>
                   <option value="SEMANAL">SEMANAL</option>                  
               </select>
           </div>
 
-          <div id="INFO_AGREGARREGISTRO">
+<!--          <div id="INFO_AGREGARREGISTRO">
               <div class="form-group">
                   Clave Documento:
               </div>
@@ -163,7 +168,7 @@ $Usuario=  Session::getSesion("user");
               <div class="form-group">
                   Responsable Documento:
               </div>
-          </div>
+          </div>-->
 
           <div class="form-group">
               <button type="submit" style="width:49%" id="btn_guardar_reg"  class="btn crud-submit btn-info">Guardar</button>
@@ -374,6 +379,13 @@ $(function()
                 data:formData,
                 success:function(r)
                 {
+                    
+                    if(r=="registro_repetido")
+                    {
+                        swal("","Error Registro Duplicado","error");
+                        setTimeout(function(){swal.close();},1500);
+                        $('#create-itemRegistro .close').click(); 
+                    }
    //                 alert("Entro al success");
                     if(r==false)
                     {
@@ -382,6 +394,11 @@ $(function()
                         setTimeout(function(){swal.close();},1500);
 //                        $("#btn_guardar_reg").removeAttr("disabled")
                         $('#create-itemRegistro .close').click();
+                        
+                        
+                        
+                        
+                        
                     }else{
                         if(r==true)
                         {
@@ -538,17 +555,17 @@ var myLayout = new dhtmlXLayoutObject({
 
 
 
- myToolbarExportar = myLayout.cells("a").attachToolbar
+// myToolbarExportar = myLayout.cells("a").attachToolbar
 ({
 //    iconset: "awesome",
-    items: [
-            {id:"toExcel",type: "button", text: "<h5>Exportar</h5>", img: "../../images/base/_excel.png"},
-    ]
+//    items: [
+//            {id:"toExcel",type: "button", text: "<h5>Exportar</h5>", img: "../../images/base/_excel.png"},
+//    ]
 });
 
 //myToolbarExportar.setIconsPath("../../images/base/");
-myToolbarExportar.base.id="toExcel";
-myToolbarExportar.setIconSize(32);
+//myToolbarExportar.base.id="toExcel";
+//myToolbarExportar.setIconSize(32);
 console.log(myToolbarExportar);
 // myLayout.cells("a").attachObject("seccionIzquierda");
  
@@ -619,6 +636,17 @@ function evaluarToolbarSeccionB(id)
 //                   else{
                    
                         if(levelv==1){
+                            
+                            //star sacar los registros existentes
+                      
+                      
+                      
+                      
+                            //end sacar los registros existentes
+                            
+                            
+                            
+                            cualModoModalAgregarEdicioRegistro="agregarregistro";
                             $('#create-itemRegistro').modal('show');
                              $("#textoHeaderRegistro").html("Guardar Registro");
 

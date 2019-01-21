@@ -21,12 +21,11 @@ function loadDataSideBarCatalogoInformacion(lista){
             list.push( {id: "temas", text: "Temas", icon: "temas.jpg"});
         }
    }
-       if(value["nombre"]=="DocumentosView.php"){
-//       console.log("entro ");
-        if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
-            list.push({id: "documentos", text: "Documentos", icon: "documentosn.jpg"});
-        }
-   }
+//       if(value["nombre"]=="DocumentosView.php"){
+//        if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
+//            list.push({id: "documentos", text: "Documentos", icon: "documentosn.jpg"});
+//        }
+//   }
        if(value["nombre"]=="AsignacionTemasRequisitosView.php"){
 //       console.log("entro ");
         if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
@@ -64,12 +63,12 @@ function loadDataSideBarCatalogoInformacion(lista){
                                        break;
                                      
 
-                                       case "documentos":             
+//                                       case "documentos":             
 //                                             consultarInformacion("../Controller/EmpleadosController.php?Op=mostrarcombo");
 //                                             consultarInformacion("../Controller/DocumentosController.php?Op=Listar");
 //                                             consultarInformacion("../Controller/DocumentosEntradaController.php?Op=Alarmas");
-                                            $("#sidebarObjV").load('InyectarVistasView.php #documentos');
-                                       break;
+//                                            $("#sidebarObjV").load('InyectarVistasView.php #documentos');
+//                                       break;
                                        
 
                                        case "asignaciontemasrequisitos":
@@ -384,11 +383,11 @@ function loadDataSideBarOficiosDocumentacion(lista)
         console.log(list);
                 $.each(list,function(index,value){
              
-                if(value["nombre"]=="InformeValidacionDocumentosView.php"){
-                    if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
-                        listInformes.push({id: "informesValidacionDocumentos", text: "Inf. De Documentos", icon: "documentos.png"});
-                    }
-                }
+//                if(value["nombre"]=="InformeValidacionDocumentosView.php"){
+//                    if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
+//                        listInformes.push({id: "informesValidacionDocumentos", text: "Inf. De Documentos", icon: "documentos.png"});
+//                    }
+//                }
                 
                  if(value["nombre"]=="InformeEvidenciasView.php"){
                     if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){

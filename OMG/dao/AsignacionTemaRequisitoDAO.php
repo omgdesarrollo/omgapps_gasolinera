@@ -472,6 +472,31 @@ public function actualizarAsignacionTemaRequisito($id_asignacion_tema_requisito,
             }
             
         }
+        
+        //dao para obtener los registros de un requisito
+        public function obtenerLosRegistrosDentroDeRequisitos($value){
+            try{
+                $query="select tbrequisitos_registros.id_registro,tbregistros.registro  from requisitos_registros tbrequisitos_registros 
+                join registros tbregistros on tbregistros.ID_REGISTRO=tbrequisitos_registros.ID_REGISTRO
+                where tbrequisitos_registros.ID_REQUISITO=".$value["id_requisito"];
+                $db= AccesoDB::getInstancia();
+                return $db->executeQuery($query);
+            } catch (Exception $ex) {
+
+            }
+        }
+        
+        public function obtenerIdRequisitoPadreDelRegistro($value){
+             try{
+                $query="select   tbrequisitos_registros.id_requisito,tbrequisitos_registros.id_registro,tbregistros.registro  from requisitos_registros tbrequisitos_registros 
+                        join registros tbregistros on tbregistros.ID_REGISTRO=tbrequisitos_registros.ID_REGISTRO
+                        where tbrequisitos_registros.ID_REGISTRO=".$value["id_registro"];
+                $db= AccesoDB::getInstancia();
+                return $db->executeQuery($query);
+            } catch (Exception $ex) {
+
+            }
+        }
     
     
     

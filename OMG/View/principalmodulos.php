@@ -25,7 +25,7 @@ if(!isset($_REQUEST["type"])){
 
 
     
-
+//Session::setSesion("s_cont",1);
 
 
 if (Session:: NoExisteSeSion("user")){

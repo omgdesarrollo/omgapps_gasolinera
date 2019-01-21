@@ -71,7 +71,7 @@ var datos_generales={};
                         swal("","Guardado Exitoso","success");
                         setTimeout(function(){swal.close();},1500);
                         obtenerDatosArbol();
-                        obtenerHijos(id_seleccionado);
+//                        obtenerHijos(id_seleccionado);
 //                       $("#btn_guardarSub").removeAttr("disabled");
                         $('#create-itemSubTema .close').click();
                     }
@@ -103,11 +103,11 @@ var datos_generales={};
                           
 var myLayout = new dhtmlXLayoutObject({
 			parent: "layout_here",
-			pattern: "3W",
+			pattern: "2U",
 			cells: [
 				{id: "a", width: 240, text: "Temas"},
-				{id: "b", width: 600, text: "Sub-Temas"},
-                                {id: "c", text: "Detalles"}
+				{id: "b", text: "Detalles"},
+//                                {id: "c", text: "Detalles"}
 				
 			]
 		});
@@ -220,15 +220,15 @@ myTree.attachEvent("onClick", function(id){
   
 myLayout.cells("b").attachObject("contenido");
 
-var myToolbar = myLayout.cells("b").attachToolbar({
-			iconset: "awesome",
-			items: [
-                                {id:"agregar", type: "button", text: "Agregar Subtema", img: "fa fa-plus-square"}
-			]
-		});
+//var myToolbar = myLayout.cells("b").attachToolbar({
+//			iconset: "awesome",
+//			items: [
+//                                {id:"agregar", type: "button", text: "Agregar Subtema", img: "fa fa-plus-square"}
+//			]
+//		});
                 
 myToolbar.attachEvent("onClick", function(id){
-    evaluarToolbarSeccionB(id);
+//    evaluarToolbarSeccionB(id);
 });
 
 function evaluarToolbarSeccionB(id)
@@ -259,7 +259,7 @@ function evaluarToolbarSeccionB(id)
             data:'ID='+id,
             success:function(data)
             {
-                construirSubDirectorio(data.datosHijos);//esta seccion construye la seccion de enmedio
+                /*construirSubDirectorio(data.datosHijos);*///esta seccion construye la seccion de enmedio
                 construirDetalleSeleccionado(data,id);//esta seccion construye la seccion ultima derecha
 //                 console.log("todos los datos",dataArbolGlobal);
               
@@ -285,7 +285,8 @@ function evaluarToolbarSeccionB(id)
             tempData1+="</table></div>";    
                 $("#contenido").html(tempData1);
     }
-   myLayout.cells("c").attachObject("contenidoDetalles");
+//   myLayout.cells("c").attachObject("contenidoDetalles");
+myLayout.cells("b").attachObject("contenidoDetalles");
    
     function construirDetalleSeleccionado(data,id)
     {

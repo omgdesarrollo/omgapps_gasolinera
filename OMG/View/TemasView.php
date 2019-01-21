@@ -221,7 +221,6 @@ require_once 'EncabezadoUsuarioView.php';
 		  </div>
        </div>
        <!--Final de Seccion Modal-->
-       
        <!-- Inicio de Seccion Modal Sub-Tema-->
        <div class="modal draggable fade" id="create-itemSubTema" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
