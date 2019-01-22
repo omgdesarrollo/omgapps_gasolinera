@@ -144,7 +144,9 @@ switch ($Op) {
             echo json_encode($Lista);
             return $Lista;
             break;
-            
+        case "insertarEvidenciaRegistro":
+            $Lista= $model->insertarPrimeraEvidenciaRegistroPadre(array("id_registro"=>$_REQUEST["id_registro"],"id_usuario"=>$_REQUEST["id_usuario"]));
+        break;
 	default:
 		# code...
 		break;

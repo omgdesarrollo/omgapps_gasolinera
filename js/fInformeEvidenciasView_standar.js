@@ -46,27 +46,42 @@ function inicializarFiltros()
     {
         filtros = [
             { id:"noneUno", type:"none"},
-            { id: "nombre",title:"Tema",type:"text"},
-            { id: "nombre_empleado",title:"Usuario", type: "text"},
-            { id: "registro",title:"Registro", type: "text"},
-            { id: "fecha_logica",title:"Fecha Actualización", type: "date"},
-            { id: "fecha_fisica",title:"Fecha Corte", type: "date"},
-            { id: "ext_anterior",title:"Ext. Anterior", type: "text"},
-            { id: "cantidad_comprada",title:"Cant. Comprada", type: "none"},
-            { id: "cantidad_vendida",title:"Cant. Vendida", type: "none"},
-            { id: "ext_actual",title:"Ext. Actual", type: "none"},
-            { id: "adjuntos",title:"Adjuntos", type: "none"},
-        
-        // { name: "nombre",title:"Tema", type: "text", width: 150, editing:false },
-        // { name: "nombre_empleado", title:"Usuario", type: "text", width:250, editing:false },
-        // { name: "registro",title:"Registro", type: "text", width: 150, editing:false  },
-        // { name: "fecha_logica",title:"Fecha Actualización", type: "text", width: 160, editing:false },
-        // { name: "fecha_fisica",title:"Fecha Corte", type: "text", width: 160, editing:false },
-        // { name: "ext_anterior", title:"Ext. Anterior", type: "text", width: 100, editing:false },
-        // { name: "cantidad_comprada",title:"Cant. Comprada", type: "text", width: 150, editing:false},
-        // { name: "cantidad_vendida",title:"Cant. Vendida", type: "text", width: 110, editing:false },
-        // { name: "ext_actual",title:"Ext. Actual", type: "text", width: 100, editing:false},
-        // { name: "adjuntos",title:"Adjuntos", type: "text", width: 100, editing:false},
+        //     { id: "tema",name:"Tema", type: "text"},
+        //     { id: "registro",name:"Registro", type: "text"},
+        //     { id: "frecuencia",name:"Frecuencia", type: "combobox",data:frecuenciaData,descripcion:"frecuencia"},
+        //     { id: "clave_documento",name:"Clave Documento", type: "text"},
+        //     { id: "fecha_creacion",name:"Fecha Creación", type: "date"},
+        //     // { id: "adjuntar_evidencia",name:"Adjuntar Evidencia", type: "text"},
+        //     { id:"noneDos", type:"none"},
+        //     { id: "fecha_registro",name:"Fecha Registro", type: "date"},
+        //     { id: "usuario",name:"Usuario", type: "text"},
+        //     { id:"noneTres", type:"none"},
+        //     { id:"noneCuatro", type:"none"},
+        //     { id:"noneCinco", type:"none"},
+        //     { id:"noneSeis", type:"none"},
+        //     // { id: "accion_correctiva",name:"Accion Correctiva", type: "text"},
+        //     // { id: "plan_accion",name:"Plan Accion", type: "text"},
+        //     // { id: "desviacion",name:"Desviacion", type: "text"},
+        //     // { id: "validacion",name:"Validacion", type: "text"},
+        //     {name:"opcion",id:"opcion",type:"opcion"}
+        //     // { id:"delete", name:"Opción", type:"customControl",sorting:""},
+        { id: "tema",title:"Tema", type: "text"},
+        { id: "tema_responsable",title:"Responsable del Tema",type:"text"},
+        { id: "requisito",title:"Requisito", type: "text"},
+        { id: "registro",title:"Registro", type: "text"},
+        { id: "frecuencia",title:"Frecuencia", type: "combobox",data:frecuenciaData,descripcion:"frecuencia"},
+        { id: "clave_documento",title:"Clave Documento", type: "text"},
+        // { id: "documento_responsable",title:"Responsable Documento",type:"text"},
+        // { id: "fecha_creacion",title:"Fecha Evidencia", type: "date"},
+        { id: "fecha_registro",title:"Fecha Registro", type: "none"},
+        { id: "evidencia",title:"Evidencia", type: "none"},
+        // { name: "usuario",title:"Usuario", type: "text", width:250, editing:false }
+        // { name: "plan_accion",title:"Plan Accion", type: "text", width: 160, editing:false },
+        // { id: "desviacion",title:"Desviacion", type: "none"},
+        { id: "notificacion",title:"Accion Correctiva", type: "none"},
+        { id: "avance_plan",title:"Avance del Plan", type: "text"},
+        { id: "estatus",title:"Estatus", type: "combobox",data:estatusFiltro,descripcion:"des_estatus"},
+        // { id:"delete", name:"Opción", type:"opcion",sorting:""},
         ];
         resolve();
     });
@@ -139,7 +154,7 @@ function inicializarFiltros()
 function mostrar_urls(id_evidencia)
 {
     var tempData=[];
-    URL = 'fileEvidencias/'+id_evidencia;
+    URL = 'filesEvidenciaDocumento/'+id_evidencia;
     // $.ajax({
     //     url: '../Controller/ArchivoUploadController.php?Op=CrearUrl',
     //     type: 'GET',
@@ -196,7 +211,7 @@ function listarDatos()
 {
     return new Promise((resolve,reject)=>
     {
-        URL = 'fileEvidencias/';
+        URL = 'filesEvidenciaDocumento/';
         __datos=[];
         $.ajax({
             url: '../Controller/InformeEvidenciasController.php?Op=Listar',
@@ -254,55 +269,62 @@ function reconstruir(value,index)
     tempData["no"] = ultimoNumeroGrid;
     tempData["id_principal"] = [];
     tempData["id_principal"].push({'id_evidencias':value.id_evidencias});
+    
+    tempData["tema"] = value.tema;
+    tempData["tema_responsable"] = value.tema_responsable;
 
-    tempData["nombre"] = value.nombre;
-    tempData["nombre_empleado"] = value.nombre_empleado;
+    //  tempData["requisito"] = "<span tooltiptext><span></span></span><p>"+value.requisito+"</p>";
+    tempData["requisito"] = value.requisito;
+//     "<div class='stat-item tooltip' data-stat='95' data-soft='Photoshop' data-color='#C0DCF1'>\n\
+//        <span tooltiptext><span></span></span>\n\
+//        <p>'Hola Mundo'</p>\n\
+//      </div>";
+//    tempData["requisito"] = "<td class='celda' width='10%' style='font-size: -webkit-xxx-large'><button type='button' class='btn btn-success'><i class='ace-icon fa fa-book' style='font-size: 20px;'></i>Ver</button></td>";
     tempData["registro"] = value.registro;
-    tempData["fecha_logica"] = getSinFechaFormato(value.fecha_logica);
-    tempData["fecha_fisica"] = getSinFechaFormato(value.fecha_fisica);
+    tempData["frecuencia"] = value.frecuencia;
 
-    tempData["ext_anterior"] = value.ext_anterior;
-    tempData["ext_actual"] = value.ext_actual;
-    tempData["cantidad_comprada"] = value.cantidad_comprada;
-    tempData["cantidad_vendida"] = value.cantidad_vendida;
+    tempData["clave_documento"] = value.clave_documento;
+    tempData["documento_responsable"] = value.documento_responsable;
 
-    if(value.archivosUpload.length!=0)
+    if(value.archivosUpload[0].length != 0)
     {
-        let archivos = $("<button>",{style:"font-size:x-large;color:#39c;background:transparent;border:none;",onclick:"abrirModalArchivos(this)"});
-        $(archivos)[0]["customData"] = value.archivosUpload;
-        $(archivos).append("<i class='fa fa-cloud' style='font-size: xx-large;color:#3399cc;cursor:pointer' aria-hidden='true'></i>");
-        tempData["adjuntos"] = archivos;
+            todoArchivo = value.archivosUpload[0][0].split("^-O-^-M-^-G-^");
+            tempData["evidencia"] = "<a href='"+value.archivosUpload[1]+"' download='"+todoArchivo[1]+"'>"+todoArchivo[1]+"</a>";
+            tempData["fecha_registro"] = getFechaStamp(todoArchivo[0]);
     }
     else
     {
-        let noArchivos = $("<button>",{style:"font-size:x-large;color:#39c;background:transparent;border:none;",onclick:"swal('Sin Archivos','','info')"});
-        $(noArchivos).append("<i class='fa fa-times' style='font-size: xx-large;color:red;cursor:pointer' aria-hidden='true'></i>");
-        tempData["adjuntos"] = noArchivos;
+        tempData["evidencia"] = "Sin Archivo";
+        tempData["fecha_registro"] = "Sin Fecha";
     }
-    return tempData;
-}
+    tempData["fecha_creacion"] = getSinFechaFormato(value.fecha_creacion);
 
-abrirModalArchivos = (obj)=>//componer el listado de los archivos
-{
-    let data = $(obj)[0]["customData"];
-    let tempData = "<table class='tbl-qa'><tr><th class='table-header'>Fecha de subida</th><th class='table-header'>Nombre</th></tr><tbody>";
-    $.each(data[0],(index,value)=>
-    {
-        nametmp = value.split("^-O-^-M-^-G-^");
-        fecha = new Date(nametmp[0]*1000);
-        fecha = fecha.getDate() +" "+ months[fecha.getMonth()] +" "+ fecha.getFullYear() +" "+fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
-        // name = "<a href=\""+todo[1]+"/"+value+"\" download='"+nametmp[1]+"'>"+nametmp[1]+"</a>";
-        tempData += "<tr class='table-row'><td>"+fecha+"</td><td>";
-        tempData += "<a href=\""+data[1]+"/"+value+"\" download='"+nametmp[1]+"'>"+nametmp[1]+"</a></td>";
-        // tempData += "<td><button style=\"font-size:x-large;color:#39c;background:transparent;border:none;\"";
-        // tempData += "onclick='borrarArchivo(\""+URL+"/"+value+"\");'>";
-        // tempData += "<i class=\"fa fa-trash\"></i></button></td></tr>";
-        // tempData["fecha"] = fecha;
-        tempData += "</td></tr>";
-    });
-    tempData += "</tbody></table>";
-    $("#create-itemUrls").modal();
-    $("#DocumentolistadoUrl").html(tempData);
+    // tempData["desviacion"] = "<button style='font-size:x-large;color:#39c;background:transparent;border:none;'";
+    // tempData["desviacion"] += "onClick='mostrarMensajes(\""+value.desviacion+"\",0);' data-toggle='modal'";
+    // if(value.desviacion=="")
+    //     tempData["desviacion"] += "data-target='#MandarNotificacionModal'>"+noMsj+"</button>";
+    // else
+    //     tempData["desviacion"] += "data-target='#MandarNotificacionModal'>"+yesMsj+"</button>";
+    // value.desviacion;
+    // tempData["accion_correctiva"] = value.accion_correctiva;
+    // tempData["accion_correctiva"] = "<button style='font-size:x-large;color:#39c;background:transparent;border:none;'";
+    // tempData["accion_correctiva"] += "onClick='mostrarMensajes(\""+value.accion_correctiva+"\",1);' data-toggle='modal'";
+    // if(value.accion_correctiva=="")
+    //     tempData["accion_correctiva"] += "data-target='#MandarNotificacionModal'>"+noMsj+"</button>";
+    // else
+    //     tempData["accion_correctiva"] += "data-target='#MandarNotificacionModal'>"+yesMsj+"</button>";
+
+    tempData["notificacion"] = "<button onClick='abrirNotificaciones("+value.accion_correctiva+","+value.id_usuario_tema+","+value.id_usuario+")' style='font-size:x-large;color:#39c;background:transparent;border:none;'>"+
+            "<i class='fa fa-comments' style='font-size: xx-large;cursor:pointer' aria-hidden='true'></i></button>";
+
+    // tempData["avance_plan"]=(value.avance_plan*100).toFixed(2)+"%";
+    tempData["avance_plan"] = value.avance_plan;
+    tempData["estatus"] = value.estatus=="VALIDADO"? "CONFORME" : "NO CONFORME" ;
+    // tempData["delete"] = [];
+    tempData["delete"]=tempData["id_principal"];
+    tempData["delete"].push({eliminar:0});
+    tempData["delete"].push({editar:0});
+    return tempData;
 }
 
 abrirNotificaciones = (mensajes,responsableTema,responsableEvidencia)=>

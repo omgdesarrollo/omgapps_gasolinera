@@ -21,60 +21,41 @@ class InformeEvidenciasDAO{
         
         try
         {
-            // $query="SELECT tbtemas.id_tema,
-            // -- tbtemas.no no_tema,
-            // --  tbtemas.nombre tema,
-            //  tbusuarios.id_empleado id_empleado_tema, tbusuarios.id_usuario id_usuario_tema,
-            // (SELECT CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ',tbempleados.apellido_materno) ) as tema_responsable,
-            // tbrequisitos.id_requisito,tbrequisitos.requisito, tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,
-            // tbdocumentos.id_documento, tbdocumentos.clave_documento, tbdocumentos.id_empleado id_empleado_documento,
+            $query="SELECT tbtemas.id_tema,
+            -- tbtemas.no no_tema,
+            --  tbtemas.nombre tema,
+             tbusuarios.id_empleado id_empleado_tema, tbusuarios.id_usuario id_usuario_tema,
+            (SELECT CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ',tbempleados.apellido_materno) ) as tema_responsable,
+            tbrequisitos.id_requisito,tbrequisitos.requisito, tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,
+            tbdocumentos.id_documento, tbdocumentos.clave_documento, tbdocumentos.id_empleado id_empleado_documento,
 
-            // (SELECT tbtemas2.nombre FROM temas tbtemas2 WHERE tbtemas2.id_tema = tbtemas.padre_general ) AS tema,
-            // (SELECT tbtemas2.no FROM temas tbtemas2 WHERE tbtemas2.id_tema = tbtemas.padre_general ) AS no_tema,
+            (SELECT tbtemas2.nombre FROM temas tbtemas2 WHERE tbtemas2.id_tema = tbtemas.padre_general ) AS tema,
+            (SELECT tbtemas2.no FROM temas tbtemas2 WHERE tbtemas2.id_tema = tbtemas.padre_general ) AS no_tema,
             
-            // (select concat(tbempleados2.nombre_empleado,' ',tbempleados2.apellido_paterno,'',tbempleados2.apellido_materno) from empleados tbempleados2
-            // where tbdocumentos.id_empleado = tbempleados2.id_empleado) as documento_responsable,
-            // tbevidencias.id_evidencias,tbevidencias.id_usuario,
+            (select concat(tbempleados2.nombre_empleado,' ',tbempleados2.apellido_paterno,'',tbempleados2.apellido_materno) from empleados tbempleados2
+            where tbdocumentos.id_empleado = tbempleados2.id_empleado) as documento_responsable,
+            tbevidencias.id_evidencias,tbevidencias.id_usuario,
             
-            // (select concat(tbempleados3.nombre_empleado,'',tbempleados3.apellido_paterno,'',tbempleados3.apellido_materno) from empleados tbempleados3 
-            // join usuarios tbusuarios2 on tbusuarios2.id_empleado = tbempleados3.id_empleado
-            // where tbevidencias.id_usuario = tbusuarios2.id_usuario) as resp,
+            (select concat(tbempleados3.nombre_empleado,'',tbempleados3.apellido_paterno,'',tbempleados3.apellido_materno) from empleados tbempleados3 
+            join usuarios tbusuarios2 on tbusuarios2.id_empleado = tbempleados3.id_empleado
+            where tbevidencias.id_usuario = tbusuarios2.id_usuario) as resp,
             
-            // tbevidencias.accion_correctiva,tbevidencias.fecha_creacion,
-            // tbevidencias.desviacion, if(tbevidencias.validacion_supervisor='1','VALIDADO','EN PROCESO') estatus
+            tbevidencias.accion_correctiva,tbevidencias.fecha_creacion,
+            tbevidencias.desviacion, if(tbevidencias.validacion_supervisor='1','VALIDADO','EN PROCESO') estatus
             
-            // FROM temas tbtemas
-            // LEFT JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON tbasignacion_tema_requisito.id_tema=tbtemas.id_tema
-            // LEFT JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos
-            // ON tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito = tbasignacion_tema_requisito.id_asignacion_tema_requisito
-            // JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbasignacion_tema_requisito_requisitos.id_requisito
-            // JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_requisito = tbrequisitos.id_requisito
-            // JOIN registros tbregistros ON tbregistros.id_registro = tbrequisitos_registros.id_registro
-            // JOIN evidencias tbevidencias ON tbevidencias.id_registro = tbregistros.id_registro
-            // JOIN empleados tbempleados ON tbempleados.id_empleado = tbtemas.responsable_general
-            // JOIN usuarios tbusuarios ON tbusuarios.id_empleado = tbempleados.id_empleado
-            // JOIN documentos tbdocumentos ON tbdocumentos.id_documento = tbregistros.id_documento
+            FROM temas tbtemas
+            LEFT JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON tbasignacion_tema_requisito.id_tema=tbtemas.id_tema
+            LEFT JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos
+            ON tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito = tbasignacion_tema_requisito.id_asignacion_tema_requisito
+            JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbasignacion_tema_requisito_requisitos.id_requisito
+            JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_requisito = tbrequisitos.id_requisito
+            JOIN registros tbregistros ON tbregistros.id_registro = tbrequisitos_registros.id_registro
+            JOIN evidencias tbevidencias ON tbevidencias.id_registro = tbregistros.id_registro
+            JOIN empleados tbempleados ON tbempleados.id_empleado = tbtemas.responsable_general
+            JOIN usuarios tbusuarios ON tbusuarios.id_empleado = tbempleados.id_empleado
+            JOIN documentos tbdocumentos ON tbdocumentos.id_documento = tbregistros.id_documento
             
-            // WHERE tbtemas.contrato=$CONTRATO AND tbregistros.registro<>'NULL' AND tbevidencias.validacion_supervisor<>'NULL'";
-
-            $query = "SELECT tbevidencias.id_evidencias, tbevidencias.id_registro, tbevidencias.id_usuario,
-            tbevidencias.ext_anterior, tbevidencias.ext_actual, tbevidencias.cantidad_comprada,
-            tbevidencias.cantidad_vendida, tbevidencias.fecha_fisica, tbevidencias.fecha_logica,
-            tbregistros.registro, tbtemas.id_tema, tbtemas.nombre, tbevidencias.primero,
-            CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ' ,tbempleados.apellido_materno) as nombre_empleado
-            FROM evidencias tbevidencias
-            JOIN registros tbregistros ON tbregistros.id_registro = tbevidencias.id_registro
-            JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_registro = tbregistros.id_registro
-            JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbrequisitos_registros.id_requisito
-            JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos ON
-            tbasignacion_tema_requisito_requisitos.id_requisito = tbrequisitos.id_requisito
-            JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON
-            tbasignacion_tema_requisito.id_asignacion_tema_requisito = tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito
-            JOIN temas tbtemas ON tbtemas.id_tema = tbasignacion_tema_requisito.id_tema
-            JOIN usuarios tbusuarios ON tbusuarios.id_usuario = tbevidencias.id_usuario
-            JOIN empleados tbempleados ON tbempleados.id_empleado = tbusuarios.id_empleado
-            WHERE tbtemas.contrato = $CONTRATO AND tbevidencias.primero = 0 ORDER BY tbevidencias.fecha_fisica DESC";
-            // -- JOIN usuarios_temas tbusuarios_temas ON tbtemas.contrato = $CONTRATO";
+            WHERE tbtemas.contrato=$CONTRATO AND tbregistros.registro<>'NULL' AND tbevidencias.validacion_supervisor<>'NULL'";
             
             $db= AccesoDB::getInstancia();
             $lista = $db->executeQuery($query);

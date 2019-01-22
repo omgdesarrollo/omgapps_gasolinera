@@ -12,11 +12,11 @@
 //             $lista=array();
 //             $contador=0;
              
-            //  foreach ($rec as $key => $value)
-            //  {                 
-            //     $resp = $dao->avancePlanPorcentaje($value["id_evidencias"]);
-            //     $rec[$key]["avance_plan"] = $resp != null ? number_format($resp*100,2,'.','')."%" : "SIN PLAN";
-            //  };
+             foreach ($rec as $key => $value)
+             {                 
+                $resp = $dao->avancePlanPorcentaje($value["id_evidencias"]);
+                $rec[$key]["avance_plan"] = $resp != null ? number_format($resp*100,2,'.','')."%" : "SIN PLAN";
+             };
              
              return $rec;
          } catch (Exception $ex)

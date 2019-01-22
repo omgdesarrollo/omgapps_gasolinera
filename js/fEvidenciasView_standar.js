@@ -7,17 +7,6 @@ var __refresh=false;
 
 $(function()
 {
-    $("#input_fechaCorte_ModalRealizarCorte").keyup(()=>
-    {
-        $("#input_fechaCorte_ModalRealizarCorte").val("");
-    });
-
-    // $("#input_fechaCorte_ModalRealizarCorte").change(()=>
-    // {
-    //     let f = $("#input_fechaCorte_ModalRealizarCorte").val();
-    //     console.log(f);
-    // });
-
     $('#BTN_CREAR_NUEVAEVIDENCIAMODAL').click(function()
     {
         claveRegistro = $("#IDREGISTRO_NUEVAEVIDENCIAMODAL").val();
@@ -95,8 +84,8 @@ $(function()
 
     $("#subirArchivos").click(function()
     {
-        // agregarArchivosUrl();
-        // $("#subirArchivos").attr("disabled",true);
+        agregarArchivosUrl();
+        $("#subirArchivos").attr("disabled",true);
     });
     
     var $btnDLtoExcel = $('#toExcel'); 
@@ -128,23 +117,22 @@ function inicializarFiltros()
             { id:"noneUno", type:"none"},
             { id: "nombre",name:"Tema", type: "text"},
             { id: "registro",name:"Registro", type: "text"},
-            // { id: "frecuencia",name:"Frecuencia", type: "combobox",data:frecuenciaData,descripcion:"frecuencia"},
-            // { id: "clave_documento",name:"Clave Documento", type: "text"},
+            { id: "frecuencia",name:"Frecuencia", type: "combobox",data:frecuenciaData,descripcion:"frecuencia"},
+            { id: "clave_documento",name:"Clave Documento", type: "text"},
             // { id: "fecha_creacion",name:"Fecha Creación", type: "date"},
             // { id: "adjuntar_evidencia",name:"Adjuntar Evidencia", type: "text"},
-            { id: "fecha_logica",name:"Fecha Registro", type: "date"},
-            // { id:"noneDos", type:"none"},
-            { id: "nombre_empleado",name:"nombre_empleado", type: "text"},
-            // { id:"noneTres", type:"none"},
-            // { id:"noneCuatro", type:"none"},
-            // { id:"noneCinco", type:"none"},
+            { id: "fecha_registro",name:"Fecha Registro", type: "date"},
+            { id:"noneDos", type:"none"},
+            { id: "usuario",name:"Usuario", type: "text"},
+            { id:"noneTres", type:"none"},
+            { id:"noneCuatro", type:"none"},
+            { id:"noneCinco", type:"none"},
             // { id:"noneSeis", type:"none"},
-            { id: "ext_anterior",name:"Exist. Anterior", type: "text"},
-            { id: "cant_comprada",name:"Cant. Comprada", type: "text"},
-            { id: "cant_vendida",name:"Cant. Vendida", type: "text"},
-            { id: "ext_actual",name:"Exist. Actual", type: "text"},
-            { id:"noneSeis", type:"none"},
-            // {name:"opcion",id:"opcion",type:"opcion"}
+            // { id: "accion_correctiva",name:"Accion Correctiva", type: "text"},
+            // { id: "plan_accion",name:"Plan Accion", type: "text"},
+            // { id: "desviacion",name:"Desviacion", type: "text"},
+            // { id: "validacion",name:"Validacion", type: "text"},
+            {name:"opcion",id:"opcion",type:"opcion"}
             // { id:"delete", name:"Opción", type:"customControl",sorting:""},
         ];
         resolve();
@@ -902,184 +890,131 @@ function reconstruir(value,index)//listo jsgrid
 {
     ultimoNumeroGrid = index;
     tempData = new Object();
+    tempArchivo="";
+    noCheck = "<i class='fa fa-times-circle-o' style='font-size: xx-large;color:red;cursor:pointer' aria-hidden='true'></i>";
+    yesCheck = "<i class='fa fa-check-circle-o' style='font-size: xx-large;color:#02ff00;cursor:pointer' aria-hidden='true'></i>";
+    nuloCheck = "<i class='fa fa-minus-circle' style='font-size: xx-large;color:#8a8a8a;cursor:pointer' aria-hidden='true'></i>";
+
     noMsj = "<i class='fa fa-file-o' style='font-size: xx-large;color:#6FB3E0;cursor:pointer' aria-hidden='true'></i>";
     yesMsj = "<i class='ace-icon fa fa-file-text-o icon-animated-bell' style='font-size: xx-large;color:#02ff00;cursor:pointer' aria-hidden='true'></i>";
     denegado = "<i class='fa fa-ban' style='font-size: xx-large;color:red;' aria-hidden='true'></i>";
         nametmp="";
         tempData["id_principal"] = [];
         tempData["id_principal"].push({'id_evidencias':value.id_evidencias});
+        // tempData["delete"] = [{'id_evidencias':value.id_evidencias,"validador":value.validador }];
+        // tempData["delete"] = value.validador;
+        tempData["validador"] = value.validador;
         tempData["no"] = index;
         tempData["nombre"] = value.nombre;
-        tempData["nombre_empleado"] = value.nombre_empleado;
+        // tempData["requisito"] = value.requisito;
         tempData["registro"] = value.registro;
-        tempData["fecha_logica"] = getSinFechaFormato(value.fecha_logica);
-        tempData["fecha_fisica"] = getSinFechaFormato(value.fecha_fisica);
-
-        if(value.primero == 1 && value.ext_anterior==null)
+        tempData["frecuencia"] = value.frecuencia;
+        tempData["clave_documento"] = value.clave_documento;
+        tempData["fecha_creacion"] = getSinFechaFormato(value.fecha_creacion);
+        
+        tempData["adjuntar_evidencia"] = "<button onClick='mostrar_urls("+value.id_evidencias+","+value.validador+","+value.validacion_supervisor+","+value.id_usuario+");'";
+        tempData["adjuntar_evidencia"] += " type='button' class='botones_vista_tabla' data-toggle='modal' data-target='#create-itemUrls'>";
+        tempData["adjuntar_evidencia"] += "<i class='fa fa-cloud-upload' style='font-size: 22px'></i></button>";
+        
+        $.each(value.archivosUpload[0],function(index2,value2)
         {
-            let ext_anterior = $("<button>",{style:"font-size:x-large;color:#39c;background:transparent;border:none;",onclick:"abrirModalAgregarExtAnterior(this)"});
-            $(ext_anterior)[0]["customData"] = value;
-            // tempData["ext_anterior"] = "<button onClick='' style=''>";
-            $(ext_anterior).append("<i class='fa fa-pencil' style='font-size: xx-large;cursor:pointer' aria-hidden='true'></i>")
-            // tempData["ext_anterior"] += "</button>";
-            tempData["ext_anterior"] = ext_anterior;
+            tempArchivo="a";
+            nametmp = value2.split("^-O-^-M-^-G-^");
+            fecha = getFechaStamp(nametmp[0]);
+            // fecha = new Date(nametmp[0]*1000);
+            // fecha = fecha.getDate() +" "+ months[fecha.getMonth()] +" "+ fecha.getFullYear() +" "+fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
+            tempData["fecha_registro"] = fecha;
 
-            tempData["corte"] = "<button onClick='swalError(\"Debe agregar Ext. Anterior\");' style='font-size:x-large;color:#39c;background:transparent;border:none;'>";
-            tempData["corte"] += "<i class='fa fa-times' style='font-size: xx-large;color:red;cursor:pointer' aria-hidden='true'></i></button>";
+            tempData["usuario"] = value.usuario;
+
+            // tempData["accion_correctiva"] = "<button style='font-size:x-large;color:#39c;background:transparent;border:none;' onClick='MandarNotificacion("+value.id_responsable+","+value.responsable+",\""+value.accion_correctiva+"\","+value.id_evidencias+","+value.validador+");' data-toggle='modal' data-target='#MandarNotificacionModal'>";
+            // if(value.accion_correctiva!="")
+            // {
+            //     tempData["accion_correctiva"] += yesMsj+"</button>";
+            // }
+            // else
+            // {
+            //     tempData["accion_correctiva"] += noMsj+"</button>";
+            // }
+            
+            tempData["plan_accion"] = "<button id='btn_cargaGantt' class='botones_vista_tabla' onClick='cargarprogram("+value.id_evidencias+","+value.validacion_supervisor+");'>";
+            if(value.validacion_supervisor=="true")
+                tempData["plan_accion"] += "Vizualizar";
+            else
+                tempData["plan_accion"] += "Registrar";
+            
+            tempData["plan_accion"] += "</button>";
+
+            // tempData["desviacion"] = "<button style='font-size:x-large;color:#39c;background:transparent;border:none;' onClick='MandarNotificacionDesviacion("+value.id_usuario+","+value.responsable+",\""+value.desviacion+"\","+value.id_evidencias+");' data-toggle='modal' data-target='#MandarNotificacionModal'>";
+            // if(value.desviacion!="")
+            // {
+            //     tempData["desviacion"] += yesMsj+"</button>";
+            // }
+            // else
+            // {
+            //     tempData["desviacion"] += noMsj+"</button>";
+            // }
+
+            if(value.validacion_supervisor == "-1")
+                tempData["conforme"] = "<button onClick='siConforme("+value.validador+","+value.id_responsable+","+value.id_evidencias+",\""+value.registro+"\")' style='font-size:x-large;color:#39c;background:transparent;border:none;' >"+noCheck+"</button>";
+
+            // if(value.validacion_supervisor == "0")
+
+            if(value.validacion_supervisor == "1")
+                tempData["conforme"] = "<button onClick='noConforme("+value.validador+","+value.id_responsable+","+value.id_evidencias+",\""+value.registro+"\")' style='font-size:x-large;color:#39c;background:transparent;border:none;' >"+yesCheck+"</button>";
+            // else
+            //     tempData["conforme"] = "<button onClick='siConforme("+value.id_responsable+","+value.id_evidencias+",\""+value.registro+"\")' style='font-size:x-large;color:#39c;background:transparent;border:none;' >"+noCheck+"</button>";
+            
+            tempData["notificacion"] = "<button onClick='abrirNotificaciones("+value.id_evidencias+","+value.id_responsable+","+value.id_usuario+")' style='font-size:x-large;color:#39c;background:transparent;border:none;'>"+
+                    "<i class='fa fa-comments' style='font-size: xx-large;cursor:pointer' aria-hidden='true'></i></button>";
+
+            // if(value.responsable=="1")
+            // {                    
+            //     tempData["validacion"] = "<button style='font-size:x-large;color:#39c;background:transparent;border:none;' onClick='validarEvidencia(this,\"evidencias\",\"validacion_supervisor\",\"id_evidencias\","+value.id_evidencias+","+value.id_usuario+")'>";
+            //     if(value.validacion_supervisor=="true")
+            //         tempData["validacion"] += yesCheck+"</button>";
+            //     else
+            //         tempData["validacion"] += noCheck+"</button>";
+            // }
+            // else
+            // {
+            //     if(value.validacion_supervisor=='true')
+            //     {
+            //         tempData["validacion"] = "<button style='font-size:x-large;color:#39c;background:transparent;border:none;' onClick='swalInfo(\"Validadopor el responsable\")'>";
+            //         tempData["validacion"] += yesCheck+"</button>";
+            //     }
+            //     else
+            //     {
+            //         tempData["validacion"] = "<button style='font-size:x-large;color:#39c;background:transparent;border:none;'  onClick='swalInfo(\"Aun no validado\")'>";
+            //         tempData["validacion"] += noCheck+"</button>";
+            //     }
+            // }
+        });
+        if(tempArchivo=="")
+        {
+                tempData["fecha_registro"] = "";
+                tempData["usuario"] = value.usuario;
+                tempData["accion_correctiva"] = "";
+                tempData["plan_accion"] = "";
+                tempData["desviacion"] = "";
+                // tempData["conforme"] = "";
+                tempData["conforme"] = "<button onClick='swalInfo(\"ESPERA... \\nNecesitas Adjuntar Evidencia\")' style='font-size:x-large;color:#39c;background:transparent;border:none;' >"+nuloCheck+"</button>";
+                // tempData["validacion"]="";
+                if(value.validador=="1")
+                    tempData["id_principal"].push({eliminar:1});
+                    // tempData["delete"]=tempData["id_principal"];
+                else
+                    tempData["id_principal"].push({eliminar:0});
+                    // tempData["delete"]=tempData["id_principal"];
         }
         else
-        {
-            tempData["ext_anterior"] = value.ext_anterior;
-            let corte = $("<button>",{style:"font-size:x-large;color:#39c;background:transparent;border:none;",onclick:"abrirModalCorte(this)"});
-            $(corte)[0]["customData"] = value;
-            $(corte).append("<i class='fa fa-dollar' style='font-size: xx-large;color:red;cursor:pointer' aria-hidden='true'></i>");
-            tempData["corte"] = corte;
-        }
-
-        tempData["ext_actual"] = value.ext_actual;
-        tempData["cantidad_comprada"] = value.cantidad_comprada;
-        tempData["cantidad_vendida"] = value.cantidad_vendida;
+            // tempData["opcion"]="";
+            tempData["id_principal"].push({eliminar:0});
+            // tempData["delete"]=tempData["id_principal"];
 
     tempData["id_principal"].push({editar:0});//si quieres que edite 1, si no 0
     tempData["delete"]=tempData["id_principal"];
     return tempData;
-}
-
-abrirModalCorte = (obj)=>
-{
-    let data = $(obj)[0]["customData"];
-    $("#realizarCorte")[0]["customData"] = data;
-    $("#realizarCorte").modal();
-    $('#fileupload').fileupload
-    ({
-        url: '../View/',
-    });
-}
-
-realizarCorte = ()=>
-{
-    let RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
-    let fechaT = new Date();
-    let mensaje = "";
-    fechaT.setDate(fechaT.getDate()+1);
-    data = $("#realizarCorte")[0]["customData"];
-    
-    let fecha = $("#input_fechaCorte_ModalRealizarCorte").val();
-    let cantidadComprada = $("#input_cantidadComprada_ModalRealizarCorte").val();
-    let cantidadVendida = $("#input_cantidadVendida_ModalRealizarCorte").val();
-    // let extAcutal = $("#input_extActual_ModalRealizarCorte").val();
-
-    if(fecha=="")
-        mensaje = "*Fecha Corte<br>";
-    if(cantidadComprada=="")
-        mensaje += "*Cantidad Comprada<br>";
-    if(cantidadVendida=="")
-        mensaje += "*Cantidad Vendida<br>";
-    // if(extAcutal=="")
-    //     mensaje += "*Ext. Actual<br>";
-
-    console.log(fecha);
-    if(mensaje!="")
-        growlError("Campos Requeridos",mensaje);
-    else
-    {
-        if(new Date(fecha)<fechaT)
-        {
-            $.ajax({
-                url:"../Controller/EvidenciasController.php?Op=RealizarCorte",
-                type:"POST",
-                data:"FECHA="+fecha+"&CANTIDAD_COMPRADA="+cantidadComprada+"&CANTIDAD_VENDIDA="+cantidadVendida+"&ID_REGISTRO="+data.id_registro+"&EXT_ACTUAL="+data.ext_actual+"&ID_EVIDENCIA="+data.id_evidencias,
-                beforeSend:()=>{},
-                success:(data)=>
-                {
-                    if(typeof(data)=="object")
-                        mandarCorte(data);
-                    else
-                        growlError("Error","Ocurrio un error al realizar corte reintente");
-                },
-                error:()=>
-                {
-                    growlError("Error","Ocurrio un error en el servidor");
-                }
-            });
-        }
-        else
-        {}
-    }
-}
-
-mandarCorte = (data)=>
-{
-
-    url = 'fileEvidencias/'+data[0].id_evidencias;
-    $.ajax({
-        url: "../Controller/ArchivoUploadController.php?Op=CrearUrl",
-        type: 'GET',
-        data: 'URL='+url,
-        success:function(creado)
-        {
-            if(creado)
-            {
-                growlWait("Subir Archivo","Cargando Archivos Espere...");
-                $('.start').click();
-            }
-        },
-        error:function()
-        {
-            growlError("Error Agregar Archivo","Error en el servidor");
-        }
-    });
-}
-
-abrirModalAgregarExtAnterior = (obj)=>//listo
-{
-    let data = $(obj)[0]["customData"];
-    $("#agregarExtAnterior")[0]["customData"] = data;
-    $("#agregarExtAnterior").modal();
-    // console.log(data);
-    // console.log(obj);
-}
-
-enviarExtAnterior = ()=>//listo
-{
-    let data = $("#agregarExtAnterior")[0]["customData"];
-    // console.log(data);
-    let extAnterior = Number($("#btn_extAnterior_modalAgregarExtAnterior").val());
-    extAnterior?llenarExtAnterior(data,extAnterior):growlError("","El campo:<br>'Exist. Anterior'<br> No es valor numerico correcto");
-}
-
-llenarExtAnterior = (data,extAnterior)=>//listo
-{
-    $.ajax({
-        url:"../Controller/EvidenciasController.php?Op=AgregarExtAnterior",
-        type:"POST",
-        data:"EXT_ANTERIOR="+extAnterior+"&ID_EVIDENCIAS="+data.id_evidencias,
-        beforeSend:()=>
-        {
-            growlWait("Espere","Realizando Proceso Solicitado");
-        },
-        success:(datos)=>
-        {
-            growlSuccess("Agregar Exist. Anterior","Exist. Anterior Agregado");
-            if(typeof(datos)=="object")
-            {
-                $("#agregarExtAnterior .close").click();
-                $.each(datos,function(index,value){
-                    componerDataListado(value);
-                });
-                componerDataGrid();
-                gridInstance.loadData();
-            }
-            else
-                datos==-1?
-                growlError("Error Agregar Exist. Anterior","Ocurrio un error al intentar agregar Exist. Anterior"):
-                growlError("Error Agregar Exist. Anterior","Se modifico pero no se pudo actualizar la vista. Recargue la vista");
-        },
-        error:(error)=>
-        {
-            growlError("Error","Error en el servidor");
-        }
-    });
 }
 
 abrirNotificaciones = (idEvidencia,responsableTema,responsableEvidencia)=>

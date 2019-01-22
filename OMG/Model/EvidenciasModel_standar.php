@@ -332,39 +332,6 @@ class EvidenciasModel
             return false;
         }
     }
-
-    public function agregarExtAnterior($USUARIO,$ID_EVIDENCIA,$EXT_ANTERIOR)
-    {
-        try
-        {
-            $dao=new EvidenciasDAO();
-            $exito = $dao->agregarExtAnterior($USUARIO,$ID_EVIDENCIA,$EXT_ANTERIOR);
-            $exito = $exito>=0?$dao->listarEvidencia($ID_EVIDENCIA,$USUARIO):-2;
-            return $exito;
-        } catch (Exception $ex)
-        {
-            throw $ex;
-            return false;
-        }
-    }
-
-    public function realizarCorte($ID_USUARIO,$FECHA,$CANTIDAD_COMPRADA,$CANTIDAD_VENDIDA,$EXT_ACTUAL,$ID_REGISTRO,$ID_EVIDENCIA)
-    {
-        try
-        {
-            $dao=new EvidenciasDAO();
-            $dao->mandarBegin();
-            $exito = $dao->actualizarUltimo($ID_EVIDENCIA);
-            $exito = $exito>0? $dao->realizarCorte($ID_USUARIO,$FECHA,$CANTIDAD_COMPRADA,$CANTIDAD_VENDIDA,$EXT_ACTUAL,$ID_REGISTRO) : -2;
-            $exito>0? $dao->mandarCommit():$dao->mandarRollback();
-            $lista = $exito>0? $dao->listarEvidencia($exito,$ID_USUARIO):-3;
-            return $lista;
-        } catch (Exception $ex)
-        {
-            throw $ex;
-            return false;
-        }
-    }
     
     
 //    public function actualizarFechaValidacion($ID_EVIDENCIAS, $VALIDACION)

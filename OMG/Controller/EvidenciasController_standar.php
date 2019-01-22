@@ -24,11 +24,11 @@ switch ($Op)
         $CONTRATO = Session::getSesion("s_cont");
 
         $Lista=$model->listarEvidencias($USUARIO["ID_USUARIO"],$CONTRATO);
-        // foreach($Lista as $key => $value)
-        // {
-        //     $url = $_REQUEST["URL"].$value["id_evidencias"];
-        //     $Lista[$key]["archivosUpload"] = $modelArchivo->listar_urls($CONTRATO,$url);
-        // }
+        foreach($Lista as $key => $value)
+        {
+            $url = $_REQUEST["URL"].$value["id_evidencias"];
+            $Lista[$key]["archivosUpload"] = $modelArchivo->listar_urls($CONTRATO,$url);
+        }
 
     	Session::setSesion("listarOperaciones",$Lista);//no se de que es esto JR
         header('Content-type: application/json; charset=utf-8');
@@ -166,35 +166,12 @@ switch ($Op)
         header('Content-type: application/json; charset=utf-8');
         $USUARIO = Session::getSesion("user");
         $exito = $model->agregarMensaje($USUARIO["ID_USUARIO"],$_REQUEST["ID_EVIDENCIA"],trim($_REQUEST["MENSAJE"]),$_REQUEST["FECHA"]);
-        echo json_encode($exito);
+        echo json_decode($exito);
     break;
 
-    case 'AgregarExtAnterior':
-        header('Content-type: application/json; charset=utf-8');
-        $USUARIO = Session::getSesion("user");
-        $ID_EVIDENCIA = $_REQUEST["ID_EVIDENCIAS"];
-        $EXT_ANTERIOR = $_REQUEST["EXT_ANTERIOR"];
-        $data = $model->agregarExtAnterior($USUARIO["ID_USUARIO"],$ID_EVIDENCIA,$EXT_ANTERIOR);
-        echo json_encode($data);
-    break;
-
-    case 'RealizarCorte':
-        header('Content-type: application/json; charset=utf-8');
-        $USUARIO = Session::getSesion("user");
-        $FECHA = $_REQUEST["FECHA"];
-        $CANTIDAD_COMPRADA = $_REQUEST["CANTIDAD_COMPRADA"];
-        $CANTIDAD_VENDIDA = $_REQUEST["CANTIDAD_VENDIDA"];
-        // $EXT_ACTUAL = $_REQUEST["EXT_ACTUAL"];
-        $ID_REGISTRO = $_REQUEST["ID_REGISTRO"];
-        $EXT_ACTUAL = $_REQUEST["EXT_ACTUAL"];
-        $ID_EVIDENCIA = $_REQUEST["ID_EVIDENCIA"];
-        $lista = $model->realizarCorte($USUARIO["ID_USUARIO"],$FECHA,$CANTIDAD_COMPRADA,$CANTIDAD_VENDIDA,$EXT_ACTUAL,$ID_REGISTRO,$ID_EVIDENCIA);
-        echo json_encode($lista);
-    break;
-
-    default:
+	default:
 		echo false;
-    break;
+        break;
 }
 
 

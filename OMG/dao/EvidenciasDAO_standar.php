@@ -52,58 +52,37 @@ class EvidenciasDAO
     {
         try
         {
-            // $query = "SELECT tbtemas.id_tema, tbusuarios.id_empleado,tbrequisitos.id_requisito,tbrequisitos.requisito,
-            // tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,
-            // tbdocumentos.clave_documento,tbevidencias.desviacion,
-            // tbevidencias.id_evidencias,tbevidencias.id_usuario,tbevidencias.accion_correctiva,tbevidencias.validacion_supervisor,tbevidencias.fecha_creacion,
-            // tbempleados.id_empleado,(SELECT tbusuario2.id_usuario FROM usuarios tbusuario2 WHERE tbusuario2.id_empleado=tbempleados.id_empleado)AS id_responsable ,
+            $query = "SELECT tbtemas.id_tema, tbusuarios.id_empleado,tbrequisitos.id_requisito,tbrequisitos.requisito,
+            tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,
+            tbdocumentos.clave_documento,tbevidencias.desviacion,
+            tbevidencias.id_evidencias,tbevidencias.id_usuario,tbevidencias.accion_correctiva,tbevidencias.validacion_supervisor,tbevidencias.fecha_creacion,
+            tbempleados.id_empleado,(SELECT tbusuario2.id_usuario FROM usuarios tbusuario2 WHERE tbusuario2.id_empleado=tbempleados.id_empleado)AS id_responsable ,
 
-            // (SELECT tbtemas2.nombre FROM temas tbtemas2 WHERE tbtemas.padre_general = tbtemas2.id_tema) as nombre,
+            (SELECT tbtemas2.nombre FROM temas tbtemas2 WHERE tbtemas.padre_general = tbtemas2.id_tema) as nombre,
 
-            // (SELECT CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ',tbempleados.apellido_materno)
-            //         FROM empleados tbempleados
-            //         JOIN usuarios tbusuariosU ON tbusuariosU.id_empleado = tbempleados.id_empleado
-            //         WHERE tbusuariosU.id_usuario = tbevidencias.id_usuario) AS usuario,
+            (SELECT CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ',tbempleados.apellido_materno)
+                    FROM empleados tbempleados
+                    JOIN usuarios tbusuariosU ON tbusuariosU.id_empleado = tbempleados.id_empleado
+                    WHERE tbusuariosU.id_usuario = tbevidencias.id_usuario) AS usuario,
                     
-            //         (SELECT IF(tbevidencias.id_usuario=$ID_USUARIO,1,0) ) AS validador,
-            //     ( SELECT IF( tbempleados.id_empleado = (SELECT tbempleado.id_empleado FROM usuarios tbusuario,empleados tbempleado 
-			// 	    WHERE tbusuario.id_empleado = tbempleado.id_empleado AND tbusuario.id_usuario = $ID_USUARIO),1,0) ) AS responsable
+                    (SELECT IF(tbevidencias.id_usuario=$ID_USUARIO,1,0) ) AS validador,
+                ( SELECT IF( tbempleados.id_empleado = (SELECT tbempleado.id_empleado FROM usuarios tbusuario,empleados tbempleado 
+				    WHERE tbusuario.id_empleado = tbempleado.id_empleado AND tbusuario.id_usuario = $ID_USUARIO),1,0) ) AS responsable
             
-            // FROM temas tbtemas
-            // LEFT JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON tbasignacion_tema_requisito.id_tema=tbtemas.id_tema
-        	// LEFT JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos
-            // ON tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito = tbasignacion_tema_requisito.id_asignacion_tema_requisito
-			// LEFT JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbasignacion_tema_requisito_requisitos.id_requisito
-			// LEFT JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_requisito = tbrequisitos.id_requisito
-            // LEFT JOIN registros tbregistros ON tbregistros.id_registro = tbrequisitos_registros.id_registro
-	    	// LEFT JOIN evidencias tbevidencias ON tbevidencias.id_registro = tbregistros.id_registro
-			// LEFT JOIN empleados tbempleados ON tbempleados.id_empleado = tbtemas.responsable_general
-			// LEFT JOIN usuarios tbusuarios ON tbusuarios.id_empleado = tbempleados.id_empleado
-            // LEFT JOIN documentos tbdocumentos ON tbdocumentos.id_documento = tbregistros.id_documento
+            FROM temas tbtemas
+            LEFT JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON tbasignacion_tema_requisito.id_tema=tbtemas.id_tema
+        	LEFT JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos
+            ON tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito = tbasignacion_tema_requisito.id_asignacion_tema_requisito
+			LEFT JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbasignacion_tema_requisito_requisitos.id_requisito
+			LEFT JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_requisito = tbrequisitos.id_requisito
+            LEFT JOIN registros tbregistros ON tbregistros.id_registro = tbrequisitos_registros.id_registro
+	    	LEFT JOIN evidencias tbevidencias ON tbevidencias.id_registro = tbregistros.id_registro
+			LEFT JOIN empleados tbempleados ON tbempleados.id_empleado = tbtemas.responsable_general
+			LEFT JOIN usuarios tbusuarios ON tbusuarios.id_empleado = tbempleados.id_empleado
+            LEFT JOIN documentos tbdocumentos ON tbdocumentos.id_documento = tbregistros.id_documento
             
-            // WHERE tbtemas.contrato=$CONTRATO AND (tbregistros.registro<>'NULL' AND tbevidencias.validacion_supervisor<>'NULL' AND tbusuarios.id_usuario = $ID_USUARIO AND LOWER(tbtemas.identificador) 
-            // LIKE '%catalogo%' OR tbevidencias.id_usuario = $ID_USUARIO)";
-            
-            $query = "SELECT tbevidencias.id_evidencias, tbevidencias.id_registro, tbevidencias.id_usuario,
-            tbevidencias.ext_anterior, tbevidencias.ext_actual, tbevidencias.cantidad_comprada,
-            tbevidencias.cantidad_vendida, tbevidencias.fecha_fisica, tbevidencias.fecha_logica,
-            tbregistros.registro, tbtemas.id_tema, tbtemas.nombre, tbevidencias.primero,
-            CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ' ,tbempleados.apellido_materno) as nombre_empleado
-            FROM evidencias tbevidencias
-            JOIN registros tbregistros ON tbregistros.id_registro = tbevidencias.id_registro
-            JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_registro = tbregistros.id_registro
-            JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbrequisitos_registros.id_requisito
-            JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos ON
-            tbasignacion_tema_requisito_requisitos.id_requisito = tbrequisitos.id_requisito
-            JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON
-            tbasignacion_tema_requisito.id_asignacion_tema_requisito = tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito
-            JOIN temas tbtemas ON tbtemas.id_tema = tbasignacion_tema_requisito.id_tema
-            JOIN usuarios tbusuarios ON tbusuarios.id_usuario = tbevidencias.id_usuario
-            JOIN empleados tbempleados ON tbempleados.id_empleado = tbusuarios.id_empleado
-            JOIN usuarios_temas tbusuarios_temas ON tbusuarios_temas.id_usuario = $ID_USUARIO
-            -- WHERE tbevidencias.id_evidencias = (select max(id_evidencias) from evidencias)
-            wHERE tbtemas.id_tema = tbusuarios_temas.id_tema AND tbevidencias.ultimo = 1";
-            // listar distintos 3
+            WHERE tbtemas.contrato=$CONTRATO AND (tbregistros.registro<>'NULL' AND tbevidencias.validacion_supervisor<>'NULL' AND tbusuarios.id_usuario = $ID_USUARIO AND LOWER(tbtemas.identificador) 
+			LIKE '%catalogo%' OR tbevidencias.id_usuario = $ID_USUARIO)";
             
             $db = AccesoDB::getInstancia();
             $lista = $db->executeQuery($query);
@@ -119,57 +98,39 @@ class EvidenciasDAO
     {
         try
         {
-            // $query = "SELECT tbtemas.id_tema, tbusuarios.id_empleado,tbrequisitos.id_requisito,tbrequisitos.requisito,
-            // tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,
-            // tbdocumentos.clave_documento,tbevidencias.desviacion,
-            // tbevidencias.id_evidencias,tbevidencias.id_usuario,tbevidencias.accion_correctiva,tbevidencias.validacion_supervisor,tbevidencias.fecha_creacion,
-            // tbempleados.id_empleado,(SELECT tbusuario2.id_usuario FROM usuarios tbusuario2 WHERE tbusuario2.id_empleado=tbempleados.id_empleado)AS id_responsable,
+            $query = "SELECT tbtemas.id_tema, tbusuarios.id_empleado,tbrequisitos.id_requisito,tbrequisitos.requisito,
+            tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,
+            tbdocumentos.clave_documento,tbevidencias.desviacion,
+            tbevidencias.id_evidencias,tbevidencias.id_usuario,tbevidencias.accion_correctiva,tbevidencias.validacion_supervisor,tbevidencias.fecha_creacion,
+            tbempleados.id_empleado,(SELECT tbusuario2.id_usuario FROM usuarios tbusuario2 WHERE tbusuario2.id_empleado=tbempleados.id_empleado)AS id_responsable,
 
-            // (SELECT tbtemas2.nombre FROM temas tbtemas2 WHERE tbtemas.padre_general = tbtemas2.id_tema) as nombre,
+            (SELECT tbtemas2.nombre FROM temas tbtemas2 WHERE tbtemas.padre_general = tbtemas2.id_tema) as nombre,
 
-            // (
-            //     SELECT CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ',tbempleados.apellido_materno)
-            //         FROM empleados tbempleados
-            //         JOIN usuarios tbusuariosU ON tbusuariosU.id_empleado = tbempleados.id_empleado
-            //         WHERE tbusuariosU.id_usuario = tbevidencias.id_usuario
-            //     ) AS usuario,
+            (
+                SELECT CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ',tbempleados.apellido_materno)
+                    FROM empleados tbempleados
+                    JOIN usuarios tbusuariosU ON tbusuariosU.id_empleado = tbempleados.id_empleado
+                    WHERE tbusuariosU.id_usuario = tbevidencias.id_usuario
+                ) AS usuario,
                 
-            //     (SELECT IF(tbevidencias.id_usuario=$ID_USUARIO,1,0) ) AS validador,
-            //     ( SELECT IF( tbempleados.id_empleado = (SELECT tbempleado.id_empleado FROM usuarios tbusuario,empleados tbempleado 
-			// 	    WHERE tbusuario.id_empleado = tbempleado.id_empleado AND tbusuario.id_usuario = $ID_USUARIO),1,0) ) AS responsable
+                (SELECT IF(tbevidencias.id_usuario=$ID_USUARIO,1,0) ) AS validador,
+                ( SELECT IF( tbempleados.id_empleado = (SELECT tbempleado.id_empleado FROM usuarios tbusuario,empleados tbempleado 
+				    WHERE tbusuario.id_empleado = tbempleado.id_empleado AND tbusuario.id_usuario = $ID_USUARIO),1,0) ) AS responsable
             
-            // FROM temas tbtemas
-            // LEFT JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON tbasignacion_tema_requisito.id_tema=tbtemas.id_tema
-        	// LEFT JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos
-            // ON tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito = tbasignacion_tema_requisito.id_asignacion_tema_requisito
-			// LEFT JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbasignacion_tema_requisito_requisitos.id_requisito
-			// LEFT JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_requisito = tbrequisitos.id_requisito
-            // LEFT JOIN registros tbregistros ON tbregistros.id_registro = tbrequisitos_registros.id_registro
-	    	// LEFT JOIN evidencias tbevidencias ON tbevidencias.id_registro = tbregistros.id_registro
-			// LEFT JOIN empleados tbempleados ON tbempleados.id_empleado = tbtemas.responsable_general
-			// LEFT JOIN usuarios tbusuarios ON tbusuarios.id_empleado = tbempleados.id_empleado
-            // LEFT JOIN documentos tbdocumentos ON tbdocumentos.id_documento = tbregistros.id_documento
+            FROM temas tbtemas
+            LEFT JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON tbasignacion_tema_requisito.id_tema=tbtemas.id_tema
+        	LEFT JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos
+            ON tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito = tbasignacion_tema_requisito.id_asignacion_tema_requisito
+			LEFT JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbasignacion_tema_requisito_requisitos.id_requisito
+			LEFT JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_requisito = tbrequisitos.id_requisito
+            LEFT JOIN registros tbregistros ON tbregistros.id_registro = tbrequisitos_registros.id_registro
+	    	LEFT JOIN evidencias tbevidencias ON tbevidencias.id_registro = tbregistros.id_registro
+			LEFT JOIN empleados tbempleados ON tbempleados.id_empleado = tbtemas.responsable_general
+			LEFT JOIN usuarios tbusuarios ON tbusuarios.id_empleado = tbempleados.id_empleado
+            LEFT JOIN documentos tbdocumentos ON tbdocumentos.id_documento = tbregistros.id_documento
             
-            // WHERE tbevidencias.id_evidencias = $ID_EVIDENCIA AND (tbregistros.registro<>'NULL' AND tbevidencias.validacion_supervisor<>'NULL' AND tbusuarios.id_usuario = $ID_USUARIO AND LOWER(tbtemas.identificador) 
-            // LIKE '%catalogo%' OR tbevidencias.id_usuario = $ID_USUARIO)";
-            $query = "SELECT tbevidencias.id_evidencias, tbevidencias.id_registro, tbevidencias.id_usuario,
-            tbevidencias.ext_anterior, tbevidencias.ext_actual, tbevidencias.cantidad_comprada,
-            tbevidencias.cantidad_vendida, tbevidencias.fecha_fisica, tbevidencias.fecha_logica,
-            tbregistros.registro, tbtemas.id_tema, tbtemas.nombre, tbevidencias.primero,
-            CONCAT(tbempleados.nombre_empleado,' ',tbempleados.apellido_paterno,' ' ,tbempleados.apellido_materno) as nombre_empleado
-            FROM evidencias tbevidencias
-            JOIN registros tbregistros ON tbregistros.id_registro = tbevidencias.id_registro
-            JOIN requisitos_registros tbrequisitos_registros ON tbrequisitos_registros.id_registro = tbregistros.id_registro
-            JOIN requisitos tbrequisitos ON tbrequisitos.id_requisito = tbrequisitos_registros.id_requisito
-            JOIN asignacion_tema_requisito_requisitos tbasignacion_tema_requisito_requisitos ON
-            tbasignacion_tema_requisito_requisitos.id_requisito = tbrequisitos.id_requisito
-            JOIN asignacion_tema_requisito tbasignacion_tema_requisito ON
-            tbasignacion_tema_requisito.id_asignacion_tema_requisito = tbasignacion_tema_requisito_requisitos.id_asignacion_tema_requisito
-            JOIN temas tbtemas ON tbtemas.id_tema = tbasignacion_tema_requisito.id_tema
-            JOIN usuarios tbusuarios ON tbusuarios.id_usuario = tbevidencias.id_usuario
-            JOIN empleados tbempleados ON tbempleados.id_empleado = tbusuarios.id_empleado
-            JOIN usuarios_temas tbusuarios_temas ON tbusuarios_temas.id_usuario = $ID_USUARIO
-            WHERE tbevidencias.id_evidencias = $ID_EVIDENCIA";
+            WHERE tbevidencias.id_evidencias = $ID_EVIDENCIA AND (tbregistros.registro<>'NULL' AND tbevidencias.validacion_supervisor<>'NULL' AND tbusuarios.id_usuario = $ID_USUARIO AND LOWER(tbtemas.identificador) 
+			LIKE '%catalogo%' OR tbevidencias.id_usuario = $ID_USUARIO)";
             $db = AccesoDB::getInstancia();
             $lista = $db->executeQuery($query);
             
@@ -532,101 +493,5 @@ class EvidenciasDAO
             throw $ex;
             return -1;
         }
-    }
-
-    public function agregarExtAnterior($USUARIO,$ID_EVIDENCIA,$EXT_ANTERIOR)
-    {
-        try 
-        {
-            $db= AccesoDB::getInstancia();
-            $query="UPDATE evidencias SET ext_anterior = '$EXT_ANTERIOR',
-             id_usuario = $USUARIO, fecha_logica = now(), ext_actual = '$EXT_ANTERIOR'
-             WHERE id_evidencias = $ID_EVIDENCIA";
-            $exito= $db->executeUpdateRowsAfected($query);
-            return $exito;
-        } catch (Exception $ex) 
-        {
-            throw $ex;
-            return -1;
-        }
-    }
-
-    public function realizarCorte($ID_USUARIO,$FECHA,$CANTIDAD_COMPRADA,$CANTIDAD_VENDIDA,$EXT_ACTUAL,$ID_REGISTRO)
-    {
-        try
-        {
-            $VALOR = $EXT_ACTUAL + $CANTIDAD_COMPRADA - $CANTIDAD_VENDIDA;
-            $query = "INSERT INTO evidencias
-                (id_registro,id_usuario,ext_anterior,cantidad_comprada,ext_actual,
-                cantidad_vendida,fecha_fisica,fecha_logica,primero)
-                VALUES ($ID_REGISTRO,$ID_USUARIO,$EXT_ACTUAL,$CANTIDAD_COMPRADA,$VALOR,
-                $CANTIDAD_VENDIDA,'$FECHA',now(),0)";
-            $db = AccesoDB::getInstancia();
-            $exito = $db->executeQueryUpdate($query);
-            if($exito==1)
-                $exito = $db->executeQuery("SELECT LAST_INSERT_ID()")[0]["LAST_INSERT_ID()"];
-            else
-                $exito = -2;
-            return $exito;
-        }catch(Exception $ex)
-        {
-            throw $ex;
-            return false;
-        }
-    }
-
-    public function actualizarUltimo($ID_EVIDENCIA)
-    {
-        try 
-        {
-            $db= AccesoDB::getInstancia();
-            $query="UPDATE evidencias SET ultimo = 0
-             WHERE id_evidencias = $ID_EVIDENCIA";
-            $exito= $db->executeUpdateRowsAfected($query);
-            return $exito;
-        } catch (Exception $ex) 
-        {
-            throw $ex;
-            return -1;
-        }
-    }
-
-    public function mandarBegin()
-    {
-        try{
-            $query="BEGIN;";
-            $db= AccesoDB::getInstancia();
-            $exito = $db->executeUpdateRowsAfected($query);
-            return $exito;
-            } catch (Exception $e){
-                throw $e;
-                return -1;
-            }
-    }
-
-    public function mandarCommit()
-    {
-        try{
-            $query="COMMIT;";
-            $db= AccesoDB::getInstancia();
-            $exito = $db->executeUpdateRowsAfected($query);
-            return $exito;
-            } catch (Exception $e){
-                throw $e;
-                return -1;
-            }
-    }
-
-    public function mandarRollback()
-    {
-        try{
-            $query="ROLLBACK;";
-            $db= AccesoDB::getInstancia();
-            $exito = $db->executeUpdateRowsAfected($query);
-            return $exito;
-            } catch (Exception $e){
-                throw $e;
-                return -1;
-            }
     }
 }

@@ -307,16 +307,24 @@ $Usuario=  Session::getSesion("user");
     var estructuraGrid = [
         { name: "id_principal", type: "text",visible:false },
         { name: "no", title:"No",type: "text", width: 50, editing:false },
-        { name: "nombre",title:"Tema", type: "text", width: 150, editing:false },
-        { name: "nombre_empleado", title:"Usuario", type: "text", width:250, editing:false },
+        { name: "tema",title:"Tema", type: "text", width: 150, editing:false },
+        { name: "tema_responsable",title:"Responsable Tema", type: "text", width: 150, editing:false },
+        { name: "requisito",title:"Requisito", type: "text", width: 150, editing:false  },
         { name: "registro",title:"Registro", type: "text", width: 150, editing:false  },
-        { name: "fecha_logica",title:"Fecha Actualización", type: "text", width: 160, editing:false },
-        { name: "fecha_fisica",title:"Fecha Corte", type: "text", width: 160, editing:false },
-        { name: "ext_anterior", title:"Exist. Anterior", type: "text", width: 100, editing:false },
-        { name: "cantidad_comprada",title:"Cant. Comprada", type: "text", width: 150, editing:false},
-        { name: "cantidad_vendida",title:"Cant. Vendida", type: "text", width: 110, editing:false },
-        { name: "ext_actual",title:"Exist. Actual", type: "text", width: 100, editing:false},
-        { name: "adjuntos",title:"Adjuntos", type: "text", width: 100, editing:false},
+        { name: "frecuencia",title:"Frecuencia", type: "text", width: 140, editing:false  },
+        { name: "clave_documento",title:"Clave Documento", type: "text",  width: 150, editing:false },
+        // { name: "documento_responsable",title:"Responsable Documento", type: "text",  width: 150, editing:false },
+        // { name: "fecha_creacion",title:"Fecha Evidencia", type: "text",  width: 160, editing:false },
+        { name: "fecha_registro",title:"Fecha Registro", type: "text", width: 160, editing:false },
+        { name: "evidencia",title:"Evidencia", type: "text",  width: 150, editing:false },
+        // { name: "usuario",title:"Usuario", type: "text", width:250, editing:false },
+        
+        // { name: "plan_accion",title:"Plan Accion", type: "text", width: 160, editing:false },
+        // { name: "desviacion",title:"Desviación", type: "text", width: 100, editing:false},
+        { name: "notificacion",title:"Notificación", type: "text", width: 150, editing:false},
+        { name: "avance_plan",title:"Avance del Plan", type: "text", width: 100, editing:false},
+        {name: "estatus",title:"Estatus", type: "text", width: 150, editing:false },
+        // { name:"delete", title:"Opción", type:"customControl",sorting:""},
     ];
 
     var customsFieldsGridData=[

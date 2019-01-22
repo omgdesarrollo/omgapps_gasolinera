@@ -132,9 +132,9 @@
     
 <div id="headerOpciones" style="position:fixed;width:100%;margin: 10px 0px 0px 0px;padding: 0px 25px 0px 5px;">
     <!-- <div style="position: fixed;"> -->
-    <!-- <button onClick="limpiarNuevaEvidenciaModal()" type="button" class="btn btn-success btn_agregar" data-toggle="modal" data-target="#nuevaEvidenciaModal">
+    <button onClick="limpiarNuevaEvidenciaModal()" type="button" class="btn btn-success btn_agregar" data-toggle="modal" data-target="#nuevaEvidenciaModal">
         Agregar Nuevo Registro
-    </button> -->
+    </button>
 
     <button id="btnAgregarEvidenciasRefrescar" type="button" class="btn btn-info btn_refrescar" onclick="refresh();" >
         <i class="glyphicon glyphicon-repeat"></i> 
@@ -360,104 +360,8 @@
     </div><!-- cierre div class="modal-dialog" -->
 </div><!-- cierre del modal-->
 
-<div class="modal draggable fade" id="agregarExtAnterior" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="text-align:-webkit-center">
-        <div id="loaderModalMostrar"></div>
-		<div class="modal-content" style="max-width:640px;">
-        <div class="modal-header" style="border-bottom:0px">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"  class="closeLetra">X</span></button>
-          <h4 class="modal-title" id="myModalLabel">Existencia Anterior</h4>
-        </div>
-        <div class="modal-body" style="padding:0px 15px 0px 15px">
-            <!-- <div class="row"> -->
-                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:0px"> -->
-                    <div class="form-group">
-                        <br>
-                        <label class="control-label" for="title">Exist. Anterior:</label>
-                        <input id="btn_extAnterior_modalAgregarExtAnterior" type="text" autocomplete="off"></input>
-                        <!-- <textarea id="" class="form-control" ></textarea> -->
-                    </div>
-
-                    <div class="form-group" style="text-align:center" method="post">
-                        <button type="submit" onClick="enviarExtAnterior()" class="btn crud-submit btn-info botones_vista_tabla">
-                        OK</button>
-                    </div>
-                <!-- </div> -->
-            <!-- </div> -->
-
-        </div><!-- cierre div class-body -->
-      </div><!-- cierre div class modal-content -->
-    </div><!-- cierre div class="modal-dialog" -->
-</div><!-- cierre del modal-->
-
-<div class="modal draggable fade" id="realizarCorte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document" style="">
-        <div id="loaderModalMostrar"></div>
-		<div class="modal-content" style="max-width:640px;">
-        <div class="modal-header" style="border-bottom:0px">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"  class="closeLetra">X</span></button>
-          <h4 class="modal-title" id="myModalLabel">Corte</h4>
-        </div>
-        <div class="modal-body" style="padding:0px 15px 0px 15px">
-                    <br>
-                    <div class="form-group">
-                        <label class="control-label" for="title">Fecha Corte:</label>
-                        <input id="input_fechaCorte_ModalRealizarCorte" type="date" autocomplete="off" 
-                        style="width:100%;border:0px solid;border-bottom: 1px solid #3399cc;"
-                        max="<?php $fecha = date('Y-m-j');
-                            $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
-                            $nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-                            echo $nuevafecha ?>"></input>
-                        <!-- <textarea id="" class="form-control" ></textarea> -->
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="title">Cantidad Comprada:</label>
-                        <input id="input_cantidadComprada_ModalRealizarCorte" type="text" autocomplete="off" 
-                        style="width:100%;border:0px solid;border-bottom: 1px solid #3399cc;"></input>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="title">Cantidad Vendida:</label>
-                        <input id="input_cantidadVendida_ModalRealizarCorte" type="text" autocomplete="off" 
-                        style="width:100%;border:0px solid;border-bottom: 1px solid #3399cc;"></input>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label class="control-label" for="title">Ext. Actual:</label>
-                        <input id="input_extActual_ModalRealizarCorte" type="text" autocomplete="off" 
-                        style="width:100%;border:0px solid;border-bottom: 1px solid #3399cc;"></input>
-                    </div> -->
-                    <div class="form-group">
-                        <form id='fileupload' method='POST' enctype='form-data'>
-                        <div class='fileupload-buttonbar'>
-                            <div class='fileupload-buttons'>
-                                <span class='fileinput-button'>
-                                    <span id='spanAgregarDocumento'><a >Agregar Archivos(Click o Arrastrar)...</a></span>
-                                    <input type='file' name='files[]' multiple></span>
-                                <span class='fileupload-process'></span>
-                            </div>
-                                <div class='fileupload-progress'>
-                                    <div class='progress' role='progressbar' aria-valuemin='0' aria-valuemax='100'></div>
-                                    <div class='progress-extended'>&nbsp;</div>
-                                </div>
-                        </div>
-                        <table role='presentation'><tbody class='files'></tbody></table>
-                        </form>
-                    </div>
-
-                    <div class="form-group" style="text-align:center" method="post">
-                        <button type="submit" onClick="realizarCorte()" class="btn crud-submit btn-info botones_vista_tabla">
-                        OK</button>
-                    </div>
-                <!-- </div> -->
-            <!-- </div> -->
-
-        </div><!-- cierre div class-body -->
-      </div><!-- cierre div class modal-content -->
-    </div><!-- cierre div class="modal-dialog" -->
-</div><!-- cierre del modal-->
-
 <!--cierre del modal Mensaje-->
 <script>
-    // $("#input_fechaCorte_ModalRealizarCorte").attr("max",new Date());
     // construirFiltros();
     // construir();
     var DataGrid=[];
@@ -481,24 +385,48 @@
                 
             ];
 
+    // var filtros = [
+    //         {name:'Requisito', id:"requisito", type:"text"},
+    //         {name:'Registro', id:"registro", type:"text"},
+    //         {name:'Frecuencia', id:"frecuencia", type:"combobox",data:frecuenciaData,descripcion:"frecuencia"}
+    //     ];
+
     var estructuraGrid = [
         { name: "id_principal", type: "text",visible:false },
         { name: "validador", type: "text",visible:false },
         { name: "no", title:"No",type: "text", width: 50, editing:false },
         { name: "nombre",title:"Tema", type: "text", width: 150, editing:false },
         { name: "registro",title:"Registro", type: "text", width: 150, editing:false  },
-        { name: "fecha_logica",title:"Fecha Actualización", type: "text", width: 160, editing:false },
-        { name: "nombre_empleado", title:"Usuario", type: "text", width:250, editing:false },
+        { name: "frecuencia",title:"Frecuencia", type: "text", width: 130, editing:false  },
+        { name: "clave_documento",title:"Clave del Documento", type: "text",  width: 180, editing:false },
+        // { name: "fecha_creacion",title:"Fecha Evidencia", type: "text",  width: 160, editing:false },
+        { name: "fecha_registro",title:"Fecha Registro", type: "text", width: 160, editing:false },
+        { name: "adjuntar_evidencia",title:"Adjuntar Evidencia", type: "text",  width: 150, editing:false },
+        { name: "usuario", title:"Usuario", type: "text", width:250, editing:false },
+        { name: "conforme", title:"Conforme", type: "text", width: 100, editing:false },
+        { name: "notificacion",title:"Notificación", type: "text", width: 150, editing:false},
+        { name: "plan_accion",title:"Plan Acción", type: "text", width: 110, editing:false },
+        // { name: "desviacion",title:"Desviación", type: "text", width: 100, editing:false},
+        { name:"delete", title:"Opción", type:"customControl",sorting:""},
+        // {name:"delete", title:"Opcion", type: "customControl" },
+        // {name:"eliminar",title:"Opcion",visible:false}
 
-        { name: "ext_anterior", title:"Exist. Anterior", type: "text", width: 100, editing:false },
-        { name: "cantidad_comprada",title:"Cant. Comprada", type: "text", width: 150, editing:false},
-        { name: "cantidad_vendida",title:"Cant. Vendida", type: "text", width: 110, editing:false },
-        { name: "ext_actual",title:"Exist. Actual", type: "text", width: 100, editing:false},
-        { name: "corte",title:"Corte", type: "text", width: 100, editing:false},
+        // { name:"id_principal", visible:false},
+        // { name:"no", title:"No",width:60},
+        // { name:"clave_contrato", title: "ID del Contrato o Asignación", type: "text", width: 150, validate: "required"},
+        // { name:"region_fiscal", title: "Region Fiscal", type: "text", width: 150, validate: "required" },
+        // { name:"ubicacion", title: "Ubicación del Punto de Medición", type: "text", width: 150, validate: "required" },
+        // { name:"tag_patin", title: "Tag del Patin de Medición", type: "text", width: 130, validate: "required" },
+        // { name:"tipo_medidor", title: "Tipo de Medidor", type: "text", width: 150, validate: "required" },    
+        // { name:"tag_medidor", title: "Tag del Medidor", type: "text", width: 130, validate: "required",editing:false },
+        // { name:"clasificacion", title: "Clasificación del Sistema de Medición", type: "text", width: 150, validate: "required" },
+        // { name:"hidrocarburo", title: "Tipo de Hidrocarburo", type: "text", width: 150, validate: "required"},
+        // { name:"delete", title:"Opción", type:"customControl",sorting:""},
+        // {type:"control",editButton: true}
     ];
 
     var customsFieldsGridData=[
-            // {field:"customControl",my_field:MyCControlField},
+            {field:"customControl",my_field:MyCControlField},
             // {field:"porcentaje",my_field:porcentajesFields},
         ];
 
@@ -528,15 +456,16 @@
             <!-- <div class="progress"></div> -->
             </td>
             <td>
-            {% if (!i && !o.options.autoUpload) { %}
+            {% if (!i && !o.options.autoUpload) { if(noArchivo==0){ %}
                     <button class="start" style="display:none;padding: 0px 4px 0px 4px;" disabled>Start</button>
-            {% } %}
+            {% } } %}
             {% if (!i) { %}
                     <button class="cancel" style="padding: 0px 4px 0px 4px;color:white">Cancel</button>
             {% } %}
             </td>
         </tr>
-    {% } %}
+        {% if(i==0){ $('.fileupload-buttonbar').html(""); } %}
+    {% noArchivo=1; } %}
 </script>
 
 <script id="template-download" type="text/x-tmpl">
@@ -564,16 +493,8 @@
             <!-- </td> -->
         </tr>
     {% } %}
-    {% if(t == 1){ %}
-    {% $("#realizarCorte .close").click(); listarDatos(); %}
-    {% } %}
+    {% if(t == 1){ if( $('#tempInputIdEvidenciaDocumento').length > 0 ) { var ID_EVIDENCIA_DOCUMENTO = $('#tempInputIdEvidenciaDocumento').val();var ID_PARA_DOCUMENTO = $('#tempInputIdParaDocumento').val(); mostrar_urls(ID_EVIDENCIA_DOCUMENTO,'1',false,ID_PARA_DOCUMENTO); growlSuccess("Subir Archivo","Archivo Cargado"); actualizarEvidencia(ID_EVIDENCIA_DOCUMENTO,1); noArchivo=0; } } %}
 </script>
-<!-- {% if( $('#tempInputIdEvidenciaDocumento').length > 0 ) { %}
-    {% var ID_EVIDENCIA_DOCUMENTO = $('#tempInputIdEvidenciaDocumento').val(); %}
-    {% var ID_PARA_DOCUMENTO = $('#tempInputIdParaDocumento').val(); %}
-    {% mostrar_urls(ID_EVIDENCIA_DOCUMENTO,'1',false,ID_PARA_DOCUMENTO); %}
-    {% growlSuccess("Subir Archivo","Archivo Cargado");%}
-    {% actualizarEvidencia(ID_EVIDENCIA_DOCUMENTO,1); } %} -->
 
     <!--Inicia para el spiner cargando-->
     <script src="../../js/loaderanimation.js" type="text/javascript"></script>

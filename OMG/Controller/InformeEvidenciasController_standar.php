@@ -26,14 +26,13 @@ switch ($Op)
             if(sizeof($archivos[0])!=0)
             {
                 $Lista[$key]["archivosUpload"] = $archivos;
-                // array_push($nuevo,$Lista[$key]);
+                array_push($nuevo,$Lista[$key]);
             }
-            else
-                $Lista[$key]["archivosUpload"] = [];
                 // $Lista[$key]["archivosUpload"] = $archivos;
         }
+
         header('Content-type: application/json; charset=utf-8');
-        echo json_encode($Lista);
+        echo json_encode($nuevo);
         break;
     
     case 'MostrarTemayResponsable':

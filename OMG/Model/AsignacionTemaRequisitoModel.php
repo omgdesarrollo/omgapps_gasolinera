@@ -258,11 +258,14 @@ class AsignacionTemaRequisitoModel {
                 $rec= $dao->insertarRegistro($registro,$id_documento,$frecuencia);
                 $ID_REGISTRO= $dao->obtenerMaximoRegistro();
                 $resultado= $dao->insertarRegistroTablaCompuesta($ID_REQUISITO, $ID_REGISTRO);
-
-               
+                
+                $model->insertarPrimeraEvidenciaRegistroPadre(array("id_registro"=>$ID_REGISTRO,"id_usuario"=>0));
                 if($rec==true && $resultado==true)
                 {
                     $datoRegistro=true;
+                    
+                    
+                    
                 }else{
                     $datoRegistro=false;
                 }
@@ -417,5 +420,17 @@ class AsignacionTemaRequisitoModel {
     }
     
     
+    
+    public function insertarPrimeraEvidenciaRegistroPadre($value){
+        try{
+             $dao=new AsignacionTemaRequisitoDAO();
+             return $dao->insertarPrimeraEvidenciaRegistroPadre($value["id_registro"],$value["id_usuario"]);
+             
+        } catch (Exception $ex) {
+
+        }
+        
+        
+    }
     
 }

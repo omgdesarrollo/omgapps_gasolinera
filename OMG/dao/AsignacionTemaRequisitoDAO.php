@@ -497,6 +497,29 @@ public function actualizarAsignacionTemaRequisito($id_asignacion_tema_requisito,
 
             }
         }
+        
+        public function insertarPrimeraEvidenciaRegistroPadre($ID_REGISTRO,$ID_USUARIO){
+        try
+            {
+               
+                $query = "INSERT INTO evidencias
+                    (id_registro,id_usuario)
+                    VALUES ($ID_REGISTRO,$ID_USUARIO)";
+                $db = AccesoDB::getInstancia();
+                $exito = $db->executeQueryUpdate($query);
+                if($exito==1)
+                    $exito = $db->executeQuery("SELECT LAST_INSERT_ID()")[0]["LAST_INSERT_ID()"];
+                else
+                    $exito = -2;
+                return $exito;
+            }catch(Exception $ex)
+            {
+                throw $ex;
+                return false;
+            }
+            
+            
+        }
     
     
     
