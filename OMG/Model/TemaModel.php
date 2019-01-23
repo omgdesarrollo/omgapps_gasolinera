@@ -99,7 +99,9 @@ class TemaModel{
               $rec= $dao->insertarNodo($NO,$NOMBRE,$DESCRIPCION,$PLAZO,$NODO,$ID_EMPLEADO,$IDENTIFICADOR,$CONTRATO);
          }
 //            self::componerTablaTemasPadreandReponsaleGeneral();
-        
+            
+  
+         
             return true;
             
         } catch (Exception $ex)
@@ -247,6 +249,13 @@ class TemaModel{
         }    
     }
     
+    public function insertarTemas_Requisitos(){
+        try{
+            $dao= new TemaDAO();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
     
     
     

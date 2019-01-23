@@ -106,7 +106,8 @@ class AsignacionTemaRequisitoModel {
                 foreach($rec as $valuet){
 //                    $htmlFrontend=$valuet["registro"];
                     $htmlFrontend.="<tr><td class='info'>Registro</td><td contenteditable='false' onClick='showEdit(this)' onBlur=\"saveToDatabaseRegistros(this,'registro',".$valuet['id_registro'].")\">".$valuet['registro']."</td></tr>";
-                    $htmlFrontend.="<tr><td class='info'>Frecuencia</td><td>".$valuet['frecuencia']."</td></tr>";                    
+                    $htmlFrontend.="<tr><td class='info'>Descripcion</td><td>".$valuet['descripcion']."</td></tr>";   
+//                    $htmlFrontend.="<tr><td class='info'>Frecuencia</td><td>".$valuet['frecuencia']."</td></tr>";                    
 //                    $htmlFrontend.="<tr><td class='info'>Clave del Documento</td><td>".$valuet['clave_documento']."</td></tr>";
                     if($valuet["documento"]!="")
                     $htmlFrontend.="<tr><td class='info'>Documento</td><td>".$valuet['documento']."</td></tr>";
@@ -234,11 +235,12 @@ class AsignacionTemaRequisitoModel {
         }
     }
     
-    public function insertarRegistros($ID_REQUISITO,$registro,$frecuencia,$id_documento)
+    public function insertarRegistros($ID_REQUISITO,$registro,$frecuencia,$id_documento,$descripcion_registro)
     {
         try
         {
             $dao=new AsignacionTemaRequisitoDAO($ID_REQUISITO,$registro,$id_documento);
+//             $dao=new AsignacionTemaRequisitoDAO();
             $model= new AsignacionTemaRequisitoModel();
             $datoRegistro="";
             //star obtener los registros dentro de los requisitos
@@ -255,7 +257,7 @@ class AsignacionTemaRequisitoModel {
             //end obtener registros dentro de los requisitos
             
             if($existe_registro_repetido==0){
-                $rec= $dao->insertarRegistro($registro,$id_documento,$frecuencia);
+                $rec= $dao->insertarRegistro($registro,$id_documento,$frecuencia,$descripcion_registro);
                 $ID_REGISTRO= $dao->obtenerMaximoRegistro();
                 $resultado= $dao->insertarRegistroTablaCompuesta($ID_REQUISITO, $ID_REGISTRO);
                 
@@ -432,5 +434,15 @@ class AsignacionTemaRequisitoModel {
         
         
     }
+    public function obtenerListaDeRegistrosSinRepetirlos(){
+        try{
+            $dao= new AsignacionTemaRequisitoDAO();
+            return $dao->obtenerListaDeRegistrosSinRepetirlos();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+    
+    
     
 }

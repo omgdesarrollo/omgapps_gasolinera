@@ -292,7 +292,7 @@ public function eliminarNodo($ID)
         }
     }
     
-    
+//    public function obtener
     
     
       

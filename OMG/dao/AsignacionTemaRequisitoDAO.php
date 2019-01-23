@@ -193,12 +193,12 @@ class AsignacionTemaRequisitoDAO {
         }
     }
     
-    public function insertarRegistro($registro,$id_documento,$frecuencia)
+    public function insertarRegistro($registro,$id_documento,$frecuencia,$descripcion_registro)
     {
         try
         {
-            $query="INSERT INTO registros(registro,id_documento,frecuencia)
-                    VALUES ('$registro',$id_documento,'$frecuencia')";
+            $query="INSERT INTO registros(registro,id_documento,frecuencia,descripcion)
+                    VALUES ('$registro',$id_documento,'$frecuencia','$descripcion_registro')";
 //            echo "".$query;
             $db=  AccesoDB::getInstancia();
             $lista= $db->executeQueryUpdate($query);
@@ -301,7 +301,7 @@ public function obtenerDetallesRegistrosConIdAsignacion($ID_REQUISITO)
 
 public function obtenerDetalles_Reg($value){
     try{
-      $query="select tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,tbdocumentos.clave_documento,
+      $query="select tbregistros.id_registro,tbregistros.registro,tbregistros.frecuencia,tbdocumentos.clave_documento,tbregistros.descripcion,
         tbdocumentos.documento,CONCAT(tbempleados.nombre_empleado,'',tbempleados.apellido_paterno,' ',tbempleados.apellido_materno) nombrecompleto 
         from registros tbregistros
 
@@ -520,7 +520,15 @@ public function actualizarAsignacionTemaRequisito($id_asignacion_tema_requisito,
             
             
         }
-    
+        public function obtenerListaDeRegistrosSinRepetirlos(){
+            try{
+                $query="select  distinct tbregistros.registro from registros tbregistros ";
+                $db= AccesoDB::getInstancia();
+                return $db->executeQuery($query);
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+        }
     
     
     

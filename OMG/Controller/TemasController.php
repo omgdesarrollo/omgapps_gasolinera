@@ -66,6 +66,14 @@ switch ($Op) {
 		# code...
 //                $json = json_decode($_POST['json']);//linea donde convierte el json string a objeto  proxima mejora
                 $Lista= $model->insertarNodo($_REQUEST['NO'],$_REQUEST['NOMBRE'],$_REQUEST['DESCRIPCION'],$_REQUEST['PLAZO'],$_REQUEST['NODO'],$_REQUEST['ID_EMPLEADOMODAL'],"catalogo",Session::getSesion("s_cont"),$ES_TEMA_OR_SUBTEMA,$DATOS_GENERALES);
+                
+                
+                
+                
+                
+//                $daoAsignacionTemaRequisito->insertarRequisitoTablaCompuesta($ID_ASIGNACION, $ID_REQUISITO);
+                
+                
                 header('Content-type: application/json; charset=utf-8'); 
                 echo json_encode($Lista);
 //                echo "con se ". Session::getSesion("s_cont");
@@ -98,9 +106,10 @@ switch ($Op) {
         $resultado = $model->actualizarColumnas($_REQUEST['TABLA'],$_REQUEST['COLUMNAS'],$_REQUEST['ID'],Session::getSesion("s_cont")); 
         
         break;
-    
-    
-    
+        case "insertaelrequisito_automaticamente_cuandosecreeuntemamanual":
+            
+            
+        break;
 	default:
 		# code...
 		break;

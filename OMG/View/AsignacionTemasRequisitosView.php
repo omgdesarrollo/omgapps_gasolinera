@@ -93,7 +93,7 @@ $Usuario=  Session::getSesion("user");
                                                      <div class="help-block with-errors"></div>
                                              </div>
 
-                                             <div class="form-group">
+                                             <div class="form-group" style="display:none">
                                                  <div class="input-group">
                                                      <span style="border:none;background-color:transparent;" class="input-group-addon">Con Penalizacion</span>
                                                      <input type="checkbox" style="width: 40px; height: 40px" class="checkbox" id="checkPenalizado">
@@ -123,18 +123,51 @@ $Usuario=  Session::getSesion("user");
         </div>
 
         <div class="modal-body">
-      <!--<form id="formRegistro">-->   
-          <div class="form-group">
+      <!--<form id="formRegistro">--> 
+<div class="row">	  
+          <div class="form-group  col-md-4">
               <label class="control-label" for="title">Registro</label>
               <!--<textarea  id="REGISTRO" class="form-control" data-error="Ingrese la Descripcion del Sub-Tema" required></textarea>-->
-              <select id="REGISTRO" >
+              
+<!--	      <select class="form-control " id="REGISTRO" >
                   <option value="MAGNA">MAGNA</option>
                   <option value="DIESEL">DIESEL</option>
                   <option value="PREMIUM">PREMIUM</option>
-              </select>
+              </select>-->
+              
+              <input class="form-control" list="list-productos" name="producto" id="REGISTRO">
+                <datalist id="list-productos">
+<!--                  <option value="MAGNA">
+                  <option value="DIESEL">
+                  <option value="PREMIUM">-->
+                </datalist>
+              
+              
+              
+              
               <div class="help-block with-errors"></div>
-          </div>                                                                                                                          
-
+		
+          </div> 
+		 
+			<div class="form-group col-md-8">		  
+				<label for="exampleTextarea">Descripcion</label>
+				  <textarea class="form-control" id="descripcion_registro" rows="3"></textarea>
+		    </div>
+		</div>	
+		<div class="row">
+		
+<!--		<div class="form-group col-md-5">	
+		
+				<label for="exampleTextarea"></label>
+				<input class="form-group" type="text" value="">
+				<div class="glyphicon glyphicon-plus"  id="agregarotrotipoproducto"></div>
+		</div>-->
+		<div class="form-group col-md-8">	
+			
+			
+		</div>
+		</div>
+		
 <!--          <div class="form-group">
               <label class="control-label">Clave/Descripcion: </label>
               <div class="dropdown">
@@ -180,6 +213,11 @@ $Usuario=  Session::getSesion("user");
       </div>
 
     </div>
+	
+	
+	
+	
+	
 </div>
   
     
@@ -295,6 +333,11 @@ parametroscheck={"penalizado":"false"};
 $(function()
 {
     
+	
+	
+	
+	
+	
     $('#checkPenalizado').click(function() {
         parametroscheck["penalizado"]=$(this).is(':checked');
 //        alert(parametroscheck["penalizado"]);
@@ -371,7 +414,15 @@ $(function()
 //         alert("dcf  "+id);
 
 //$("#selectFrecuencia option[value="+ valor +"]").attr("selected",true)
-         var formData = {"ID_REQUISITO":id_req,"REGISTRO":$('#REGISTRO').val(),"ID_DOCUMENTO":idDocumentoSelect,"FRECUENCIA":$("#selectFrecuencia").prop("value")};
+        var selected_registro;
+        selected_registro=document.getElementById("REGISTRO").value;
+//        alert("es");
+//        $("#REGISTRO").on('input', function(e){
+//             selected = $(this).val();
+//             console.log("s  ",selected);
+//        });
+//        console.log("salio",selected);
+         var formData = {"ID_REQUISITO":id_req,"REGISTRO":selected_registro,"ID_DOCUMENTO":idDocumentoSelect,"FRECUENCIA":$("#selectFrecuencia").prop("value"),"descripcion_registro":$("#descripcion_registro").val()};
 //         alert("Entro al ajax");
             $.ajax({
                 url:'../Controller/AsignacionTemasRequisitosController.php?Op=GuardarSubNodo',
@@ -402,11 +453,26 @@ $(function()
                     }else{
                         if(r==true)
                         {
+                            
+                            
+                            obtenerlistaderegistrossinrepetir();
+                            
                             swal("","Guardado Exitoso","success");
-                            setTimeout(function(){swal.close();$("#create-itemRegistro . close").click();},1500);
+                            setTimeout(function(){
+                                swal.close();
+                                $("#create-itemRegistro .close").click();
+                            },1500);
                             obtenerDatosArbol(id_temporal_dinamico_para_los_nodos_del_arbol);
+                            
+                            
+                            
+                            
+                            
+                            
 //                            $("#btn_guardar_reg").removeAttr("disabled")
                             $('#create-itemRegistro .close').click();
+                        
+                            
                         }
                     }
 
@@ -453,7 +519,13 @@ $(function()
          $("#REGISTRO").val("");
      });
      
+     //star agregar otro tipo de producto
+   
+     //end agregar otro tipo de producto 
      
+     
+     
+//     
     var $btnDLtoExcel = $('#toExcel'); 
     $btnDLtoExcel.on('click', function () 
     {   
@@ -471,10 +543,36 @@ $(function()
             , dataset: DataGridExcel
             , columns: getColumns(DataGridExcel)
         });
-    });
-     
-     
-}); //CIERRA $FUNCTION
+    });  
+}); 
+<!--CIERRA $FUNCTION-->
+
+function obtenerlistaderegistrossinrepetir(){
+
+  $.ajax({
+             url:'../Controller/AsignacionTemasRequisitosController.php?Op=obtenerlistaderegistrossinrepetir',
+             type:'POST',
+             success:function(r)
+             {
+                  $("#list-productos").html("");
+                 $.each(r,function(index,value){
+//                     console.log("entro",value);
+                    $("#list-productos").append($('<option>',{
+                      value:""+value["registro"],
+                     }));    
+                     
+                 });
+               <!--$("#REGISTRO").append($('<option>',{-->
+//                    value:"d",
+//                    text:"d"
+//                 }));   
+                 
+             }
+         });
+
+
+}
+
 
 
 function reconstruirExcel(value,index)
@@ -563,11 +661,11 @@ var myLayout = new dhtmlXLayoutObject({
 //    ]
 });
 
-//myToolbarExportar.setIconsPath("../../images/base/");
-//myToolbarExportar.base.id="toExcel";
-//myToolbarExportar.setIconSize(32);
-console.log(myToolbarExportar);
-// myLayout.cells("a").attachObject("seccionIzquierda");
+<!--myToolbarExportar.setIconsPath("../../images/base/");-->
+<!--myToolbarExportar.base.id="toExcel";-->
+<!--myToolbarExportar.setIconSize(32);-->
+<!--console.log(myToolbarExportar);-->
+ <!--myLayout.cells("a").attachObject("seccionIzquierda");-->
  
 
 var myToolbar = myLayout.cells("b").attachToolbar
@@ -647,6 +745,7 @@ function evaluarToolbarSeccionB(id)
                             
                             
                             cualModoModalAgregarEdicioRegistro="agregarregistro";
+                            obtenerlistaderegistrossinrepetir();
                             $('#create-itemRegistro').modal('show');
                              $("#textoHeaderRegistro").html("Guardar Registro");
 
@@ -678,6 +777,7 @@ function evaluarToolbarSeccionB(id)
                        success:function(r){
                            if(r.validado_documento_responsable_or_evidenciascargadas!="se_encuentra_validado_o_ahy_evidencias" ){
                                $("#REGISTRO").val(r.registro);
+                               $("#descripcion_registro").val(r.descripcion);
                                $('#create-itemRegistro').modal('show');
                                $("#textoHeaderRegistro").html("Edicion de Registro");
                            }else{
@@ -704,7 +804,6 @@ function evaluarToolbarSeccionB(id)
 //                    alert("Este es el level: "+level);
 //                    alert("Este es el subItems: "+subItems);                    
                     if(level==0){
-//                        alert(subItems);
                       swal("","Seleccione un Requisito o Registro","error");
                       setTimeout(function(){swal.close();},1500);  
                     } else {

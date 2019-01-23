@@ -86,7 +86,7 @@ switch ($Op) {
             
         break;
         case'GuardarSubNodo':
-            $Lista= $model->insertarRegistros($_REQUEST['ID_REQUISITO'],$_REQUEST['REGISTRO'],$_REQUEST['FRECUENCIA'], $_REQUEST['ID_DOCUMENTO']);
+            $Lista= $model->insertarRegistros($_REQUEST['ID_REQUISITO'],$_REQUEST['REGISTRO'],$_REQUEST['FRECUENCIA'], $_REQUEST['ID_DOCUMENTO'],$_REQUEST["descripcion_registro"]);
             header('Content-type: application/json; charset=utf-8'); 
             echo json_encode($Lista);
             
@@ -147,6 +147,13 @@ switch ($Op) {
         case "insertarEvidenciaRegistro":
             $Lista= $model->insertarPrimeraEvidenciaRegistroPadre(array("id_registro"=>$_REQUEST["id_registro"],"id_usuario"=>$_REQUEST["id_usuario"]));
         break;
+    
+        case "obtenerlistaderegistrossinrepetir":
+            header('Content-type: application/json; charset=utf-8'); 
+            $Lista=$model->obtenerListaDeRegistrosSinRepetirlos();
+            echo json_encode($Lista);
+        break;
+    
 	default:
 		# code...
 		break;
