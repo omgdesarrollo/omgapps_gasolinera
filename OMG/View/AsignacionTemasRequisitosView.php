@@ -675,7 +675,7 @@ var myLayout = new dhtmlXLayoutObject({
 			parent: "layout_here",
 			pattern: "3W",
 			cells: [
-				{id: "a", width: 240, text: "Temas"},
+				{id: "a", width: 240, text: "Estaciones de servicio"},
 				{id: "b",   text: "Requisitos-Registros"},
                                 {id: "c", width: 260,text: "Detalles"}
 				
@@ -1078,7 +1078,7 @@ console.log("el falso  ",id);
         tempData2="<div class='table-responsive altotablascrollbar'><table class='table table-bordered'><thead><tr class='danger'><th>Datos</th><th>Detalles</th></tr></thead><tbody></tbody>";
                     $.each(data, function(index,value){
                        tempData2+="<tr><td class='info'>No</td><td>"+value.no+"</td></tr>";
-                       tempData2+="<tr><td class='info'>Tema</td><td>"+value.nombre+"</td></tr>";
+                       tempData2+="<tr><td class='info'>Estación de servicio</td><td>"+value.nombre+"</td></tr>";
                        tempData2+="<tr><td class='info'>Descripcion</td><td>"+value.descripcion+"</td></tr>";
 //                       if(level==1)
                        tempData2+="<tr><td class='info'>Responsable</td><td>"+value.nombre_empleado+" "+value.apellido_paterno+" "+value.apellido_materno+"</td></tr>";
