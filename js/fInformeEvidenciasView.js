@@ -582,6 +582,64 @@ if( value.estatus=="EN PROCESO"){
 //      }
 //  })
 // }
+graficarPrincipal = ()=>
+{
+    graficar();
+}
+
+graficaLineal = ()=>
+{
+    // function drawLineColors() {
+    let data = new google.visualization.DataTable();
+    let tempData = [];
+    $.each(dataListado,(index,value)=>
+    {
+        let fecha = value.fecha_fisica.split("-");
+        console.log(value);
+        tempData.push([new Date(fecha[0],fecha[1]-1,fecha[2]), Number(value.cantidad_vendida),Number(value.cantidad_comprada),Number(value.ext_actual)]);
+    });
+
+    console.log(tempData);
+
+    data.addColumn('date', 'x');
+    data.addColumn('number', 'Vendida');
+    data.addColumn('number', 'Comprada');
+    data.addColumn('number', 'Existencia');
+
+    data.addRows(tempData);
+
+    // data.addRows([
+    //     [new Date(2019, 0, 19), 8000, 0],
+    //     [new Date(2019, 0, 20), 5000, 5000],
+    //     [new Date(2019, 0, 21), 7000, 3000],
+    //     [new Date(2019, 0, 22), 6000, 2000],
+    //     [new Date(2019, 0, 23), 9300, 1200],
+    //     [new Date(2019, 0, 24), 8900, 1700],
+    //     [new Date(2019, 0, 25), 6900, 4000]
+    // ]);
+
+    var options = {
+        width:700,
+        height:600,
+        pointSize:5,
+        legend:{
+            position:"top",alignment:"start",
+            textStyle:{color:"black",fontSize:14,bold:true}
+        },
+        hAxis: {
+            title: 'Fecha',format: 'd-M-yy'
+        },
+        vAxis: {
+            title: 'Gasolina'
+        },
+        colors: ['blue', '#097138']
+    };
+    var chart = new google.visualization.LineChart(document.getElementById('graficaPie'));
+    // graficaPie
+    chart.draw(data, options);
+
+    // }
+}
 
 function graficar()
 {
@@ -593,37 +651,50 @@ function graficar()
     let dataGrafica = [];
     let tituloGrafica = "INFORME DE EVIDENCIAS";
     let bandera = 0;
+    let lista = new Object();
 
     $.each(dataListado,(index,value)=>{
-        if(value.estatus == "EN PROCESO")
-        {
-            proceso++;
-            proceso_data.push(value);
-        }
-        if(value.estatus == "VALIDADO")
-        {
-            validados++;
-            validados_data.push(value);
-        }
+        if(lista[value.id_registro]==undefined)
+            lista[value.id_registro]=[];
+        lista[value.id_registro].push(value);
     });
-    
-    if(validados!=0)
-        dataGrafica.push(["Conforme",validados,">> Evidencias:"+validados.toString(),JSON.stringify(validados_data),1]);
-    if(proceso!=0)
-        dataGrafica.push(["No Conforme",proceso,">> Evidencias:"+proceso.toString(),JSON.stringify(proceso_data),1]);
-    
-    $.each(dataGrafica,function(index,value){
-        if(value[1] != 0)
-            bandera=1;
+    $.each(lista,(index,value)=>
+    {
+        let existencia = 0;
+        let fecha = new Date(value[0].fecha_fisica);
+        let valTemp = value[0];
+        $.each(value,(ind,val)=>
+        {
+            let fechaTemp = new Date(val.fecha_fisica);
+            if(fecha<fechaTemp)
+            {
+                fecha = fechaTemp;
+                valTemp = val;
+            }
+        });
+        existencia = valTemp.ext_actual;
+        dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),0]);
     });
 
-    if(bandera == 0)
-    {
-        dataGrafica.push([ "NO EXISTEN EVIDENCIAS",1,"SIN EVIDENCIAS","[]",0]);
-        tituloGrafica = "NO EXISTEN EVIDENCIAS";
-    }
+    console.log(lista);
+    
+    // if(validados!=0)
+    //     dataGrafica.push(["Conforme",validados,">> Evidencias:"+validados.toString(),JSON.stringify(validados_data),1]);
+    // if(proceso!=0)
+    //     dataGrafica.push(["No Conforme",proceso,">> Evidencias:"+proceso.toString(),JSON.stringify(proceso_data),1]);
+    
+    // $.each(dataGrafica,function(index,value){
+    //     if(value[1] != 0)
+    //         bandera=1;
+    // });
+
+    // if(bandera == 0)
+    // {
+    //     dataGrafica.push([ "NO EXISTEN EVIDENCIAS",1,"SIN EVIDENCIAS","[]",0]);
+    //     tituloGrafica = "NO EXISTEN EVIDENCIAS";
+    // }
     construirGrafica(dataGrafica,tituloGrafica);
-    $("#BTN_ANTERIOR_GRAFICAMODAL").html("Recargar");
+    // $("#BTN_ANTERIOR_GRAFICAMODAL").html("Recargar");
 }
 
 function graficar2(temas,concepto)

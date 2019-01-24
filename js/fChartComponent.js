@@ -1,4 +1,4 @@
-google.charts.load('current', {'packages':['corechart']});
+// google.charts.load('current', {'packages':['corechart']});
 
 $(function()
 {
@@ -17,7 +17,7 @@ $(function()
     });
 });
 
-function inicializaChartjs()
+inicializaChartjs = ()=>
 {
     let modal = '<div class="modal draggable fade" id="Grafica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
         modal += '<div class="modal-dialog sizeChart" role="document" style="text-align: -webkit-center;">';

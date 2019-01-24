@@ -249,13 +249,7 @@ class TemaModel{
         }    
     }
     
-    public function insertarTemas_Requisitos(){
-        try{
-            $dao= new TemaDAO();
-        } catch (Exception $ex) {
-            throw $ex;
-        }
-    }
+ 
     
     
     

@@ -244,6 +244,7 @@ $Usuario=  Session::getSesion("user");
 
 	<script>
             var myLayout, myTree, myToolbar,myToolbarExportar,id_asignacion_t=-1,levelv=0,id_asignacion_r=-1,selec_tema=-1,id_seleccionado=-1,dataIds_req=[],dataIds_reg=[];
+            var myContextMenu;
             var cualModoModalAgregarEdicioRegistro="agregarregistro";
             var dataListado=[];
             var DataGridExcel=[];
@@ -255,6 +256,36 @@ $Usuario=  Session::getSesion("user");
             myTreeIzquierda = new dhtmlXTreeObject('treeboxbox_treeIzquierda', '100%', '100%',0);
             myTreeIzquierda.setImagePath("../../codebase/imgs/dhxtree_material/");
             myTreeIzquierda.enableDragAndDrop(false); 
+           
+            
+            myTreeIzquierda.attachEvent("onContextMenu", function(id, x, y, ev){
+				if (myContextMenu == null) {
+					myContextMenu = new dhtmlXMenuObject({
+						icons_path: "../../codebase/imgs/dhxmenu_material/",
+						context: true,
+						items: [
+							{id: "itemText"},
+							{type: "separator"},
+//							{id: "cut", text: "Cut", img: "cut.gif"},
+							{id: "copy", text: "Copy", img: "dhxlayout_sep_ver.gif"}
+//							{id: "paste", text: "Paste", img: "paste.gif"}
+						]
+					});
+				}
+                                
+                                myContextMenu.setItemText("itemText", myTreeIzquierda.getItemText(id));
+				myContextMenu.showContextMenu(x, y);
+				myTreeIzquierda.selectItem(id);
+				writeLog("onContextMenu event, id: "+id+" ("+myTreeIzquierda.getItemText(id)+")");
+				return false; // prevent default context menu
+                                
+                                
+                                
+                            })
+            
+//             myTreeIzquierda.enableContextMenu(true);
+            
+            
 //            myCombo = new dhtmlXCombo({
 //				parent: "comboclave_descripcion",
 //				width: 230,

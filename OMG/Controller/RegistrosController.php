@@ -23,6 +23,7 @@ switch ($Op){
         $data= json_decode($_REQUEST["ID_ASIGNACION"]);
         
         $Lista=$model->generarDatosArbol($data->id_asignacion,$data->id_tema_subtema);
+        
         // Session::setSesion("generarDatosArbol",$Lista);
        
         echo json_encode($Lista);
