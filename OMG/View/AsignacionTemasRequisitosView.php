@@ -126,7 +126,7 @@ $Usuario=  Session::getSesion("user");
       <!--<form id="formRegistro">--> 
 <div class="row">	  
           <div class="form-group  col-md-4">
-              <label class="control-label" for="title">Registro</label>
+              <label class="control-label" for="title">Reg</label>
               <!--<textarea  id="REGISTRO" class="form-control" data-error="Ingrese la Descripcion del Sub-Tema" required></textarea>-->
               
 <!--	      <select class="form-control " id="REGISTRO" >
@@ -704,7 +704,7 @@ var myToolbar = myLayout.cells("b").attachToolbar
     iconset: "awesome",
     items: [
             {id:"agregarReq",type: "button", text: "Agregar Requisito", img: "fa fa-save "},
-            {id:"agregar",type: "button", text: "Agregar Registro", img: "fa fa-save "},
+            {id:"agregar",type: "button", text: "Agregar Otro Producto", img: "fa fa-save "},
             {id:"editar",type: "button", text: "Editar Registro", img: "fa fa-edit"},
             {id:"eliminar",type: "button", text: "Eliminar", img: "fa fa-trash-o "}
 
@@ -778,7 +778,7 @@ function evaluarToolbarSeccionB(id)
                             cualModoModalAgregarEdicioRegistro="agregarregistro";
                             obtenerlistaderegistrossinrepetir();
                             $('#create-itemRegistro').modal('show');
-                             $("#textoHeaderRegistro").html("Guardar Registro");
+                             $("#textoHeaderRegistro").html("Guardar Producto");
 
                        }else{
                             swal("","Seleccione un Requisito","error");

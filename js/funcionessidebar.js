@@ -18,7 +18,7 @@ function loadDataSideBarCatalogoInformacion(lista){
        if(value["nombre"]=="TemasView.php"){
 //       console.log("entro ");
         if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
-            list.push( {id: "temas", text: "Temas", icon: "temas.jpg"});
+            list.push( {id: "temas", text: "Estaciones de servicio", icon: "temas.jpg"});
         }
    }
 //       if(value["nombre"]=="DocumentosView.php"){
@@ -29,7 +29,7 @@ function loadDataSideBarCatalogoInformacion(lista){
        if(value["nombre"]=="AsignacionTemasRequisitosView.php"){
 //       console.log("entro ");
         if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
-            list.push({id: "asignaciontemasrequisitos", text: "Asignacion de Tema - Requisito - Documento", icon: "asignacionrequisitos.png"});
+            list.push({id: "asignaciontemasrequisitos", text: "Productos por estación de servicio", icon: "asignacionrequisitos.png"});
         }
    }
        

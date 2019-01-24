@@ -150,13 +150,13 @@ require_once 'EncabezadoUsuarioView.php';
 		    <div class="modal-content">
 		      <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="closeLetra">X</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Crear Nuevo Tema</h4>
+		        <h4 class="modal-title" id="myModalLabel"><!--Crear Nuevo Tema-->Estaciones de servicio</h4>
 		      </div>
                         
 		      <div class="modal-body">
                           
                                                 <div class="form-group">
-							<label class="control-label" for="title">No.Tema:</label>
+							<label class="control-label" for="title">No:</label>
                                                         <input type="text"  id="NO" class="form-control"  />
                                                         
                                                     
@@ -166,7 +166,7 @@ require_once 'EncabezadoUsuarioView.php';
 						</div>
                                                 
                                                 <div class="form-group">
-							<label class="control-label" for="title">Tema:</label>
+							<label class="control-label" for="title">Estación de servicio:</label>
                                                         <textarea  id="NOMBRE" class="form-control" data-error="Ingrese la Descripcion del Tema" ></textarea>
 							<div class="help-block with-errors"></div>
 						</div>                                    
@@ -179,7 +179,7 @@ require_once 'EncabezadoUsuarioView.php';
 						</div>
                                                                                                                        
                                                                         
-                                                <div class="form-group">
+                                                <div class="form-group" style="display: none">
 							<label class="control-label" for="title">Plazo:</label>
                                                         <textarea  id="PLAZO" class="form-control" data-error="Ingrese la Descripcion del Sub-Tema" ></textarea>
 							<div class="help-block with-errors"></div>
