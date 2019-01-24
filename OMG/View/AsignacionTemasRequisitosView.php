@@ -126,7 +126,7 @@ $Usuario=  Session::getSesion("user");
       <!--<form id="formRegistro">--> 
 <div class="row">	  
           <div class="form-group  col-md-4">
-              <label class="control-label" for="title">Reg</label>
+              <label class="control-label" for="title">Registro</label>
               <!--<textarea  id="REGISTRO" class="form-control" data-error="Ingrese la Descripcion del Sub-Tema" required></textarea>-->
               
 <!--	      <select class="form-control " id="REGISTRO" >
@@ -494,13 +494,6 @@ $(function()
                                 $("#create-itemRegistro .close").click();
                             },1500);
                             obtenerDatosArbol(id_temporal_dinamico_para_los_nodos_del_arbol);
-                            
-                            
-                            
-                            
-                            
-                            
-//                            $("#btn_guardar_reg").removeAttr("disabled")
                             $('#create-itemRegistro .close').click();
                         
                             
@@ -550,12 +543,7 @@ $(function()
          $("#REGISTRO").val("");
      });
      
-     //star agregar otro tipo de producto
-   
-     //end agregar otro tipo de producto 
-     
-     
-     
+
 //     
     var $btnDLtoExcel = $('#toExcel'); 
     $btnDLtoExcel.on('click', function () 
@@ -567,7 +555,6 @@ $(function()
                 __datosExcel.push( reconstruirExcel(value,index+1) );
             });
             DataGridExcel= __datosExcel;
-//            console.log("Entro al excelexportHibrido");
         $("#listjson").excelexportHibrido({
             containerid: "listjson"
             , datatype: 'json'
@@ -576,7 +563,7 @@ $(function()
         });
     });  
 }); 
-<!--CIERRA $FUNCTION-->
+//CIERRA $FUNCTION
 
 function obtenerlistaderegistrossinrepetir(){
 
@@ -593,10 +580,7 @@ function obtenerlistaderegistrossinrepetir(){
                      }));    
                      
                  });
-               <!--$("#REGISTRO").append($('<option>',{-->
-//                    value:"d",
-//                    text:"d"
-//                 }));   
+   
                  
              }
          });
@@ -684,20 +668,7 @@ var myLayout = new dhtmlXLayoutObject({
 
 
 
-// myToolbarExportar = myLayout.cells("a").attachToolbar
-({
-//    iconset: "awesome",
-//    items: [
-//            {id:"toExcel",type: "button", text: "<h5>Exportar</h5>", img: "../../images/base/_excel.png"},
-//    ]
-});
 
-<!--myToolbarExportar.setIconsPath("../../images/base/");-->
-<!--myToolbarExportar.base.id="toExcel";-->
-<!--myToolbarExportar.setIconSize(32);-->
-<!--console.log(myToolbarExportar);-->
- <!--myLayout.cells("a").attachObject("seccionIzquierda");-->
- 
 
 var myToolbar = myLayout.cells("b").attachToolbar
 ({
@@ -764,16 +735,7 @@ function evaluarToolbarSeccionB(id)
 //                   }
 //                   else{
                    
-                        if(levelv==1){
-                            
-                            //star sacar los registros existentes
-                      
-                      
-                      
-                      
-                            //end sacar los registros existentes
-                            
-                            
+                        if(levelv==1){               
                             
                             cualModoModalAgregarEdicioRegistro="agregarregistro";
                             obtenerlistaderegistrossinrepetir();
@@ -1043,7 +1005,7 @@ console.log("el falso  ",id);
                     {
                         hijo++;
                         cadenaReg=val.registro;
-                        dataArbol.push([hijo,padre,"Registro-"+cadenaReg.substr(0,9)+"...."]);
+                        dataArbol.push([hijo,padre,"Reg-"+cadenaReg.substr(0,9)+"...."]);
                         
 //                        dataIds.push([hijo,val.id_registro,val.registro]);
                          dataIds_reg.push({"hijo":hijo,"id_registro":val.id_registro,"registro":val.registro});
