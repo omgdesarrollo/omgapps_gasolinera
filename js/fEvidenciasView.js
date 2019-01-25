@@ -955,7 +955,7 @@ abrirModalCorte = (obj)=>
         url: '../View/',
     });
 }
-
+//cambio sin daño
 realizarCorte = ()=>
 {
     let RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{2,4}$/;
