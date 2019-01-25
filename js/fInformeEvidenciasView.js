@@ -670,7 +670,7 @@ graficaLineal = (dataNextGrafica,concepto)=>
         vAxis: {
             title: 'Gasolina'
         },
-        colors: ['blue', '#097138']
+        colors: ['blue', '#097138','red']
     };
     var chart = new google.visualization.LineChart(document.getElementById('graficaPie'));
     // graficaPie
