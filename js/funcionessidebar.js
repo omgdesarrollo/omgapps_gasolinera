@@ -456,7 +456,8 @@ var listAjusteUsuarios=[];
                 }
                 
                 if(value["nombre"]=="ControlTemasView.php"){
-                    if(window.top.variables_super_globales["cumplimientos"]==true){
+//                    window.top.variables_super_globales["inventarios"]=true;
+                    if(window.top.variables_super_globales["inventarios"]==true){
 //console.log("aqui esta",window.top.variables_super_globales["cumplimientos"]);
                         if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
                             listAjusteUsuarios.push( {id: "control", text: "Control de Temas", icon: "controlTemas.png"});

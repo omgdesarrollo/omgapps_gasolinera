@@ -298,7 +298,7 @@ var gantt=[
    var listasubmodulos=[];
    var nombre_contenido_sub_usuario;
   var variables_super_globales={};
-  variables_super_globales["cumplimientos"]=false;
+  variables_super_globales["inventarios"]=false;
   
    loadDataNotificaciones();
 
@@ -1065,8 +1065,8 @@ var vistas = [];
                           $.each(datosSeccionesRibbon,function(index,value1){
 //                console.log("debajo:",value);
                 
-                             if(value1["text"]=="Cumplimientos"){
-                                    variables_super_globales["cumplimientos"]=true;
+                             if(value1["text"]=="Inventarios"){
+                                    variables_super_globales["inventarios"]=true;
                                  }
                          });
                          
