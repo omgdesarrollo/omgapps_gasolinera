@@ -715,7 +715,7 @@ function graficar(data)
             }
         });
         existencia = valTemp.ext_actual;
-        dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),0]);
+        dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),1]);
     });
 
     console.log(dataGrafica);
@@ -727,16 +727,16 @@ function graficar(data)
     // if(proceso!=0)
     //     dataGrafica.push(["No Conforme",proceso,">> Evidencias:"+proceso.toString(),JSON.stringify(proceso_data),1]);
     
-    // $.each(dataGrafica,function(index,value){
-    //     if(value[1] != 0)
-    //         bandera=1;
-    // });
+    $.each(dataGrafica,function(index,value){
+        if(value[1] != 0)
+            bandera=1;
+    });
 
-    // if(bandera == 0)
-    // {
-    //     dataGrafica.push([ "NO EXISTEN EVIDENCIAS",1,"SIN EVIDENCIAS","[]",0]);
-    //     tituloGrafica = "NO EXISTEN EVIDENCIAS";
-    // }
+    if(bandera == 0 || dataGrafica.length==0 )
+    {
+        dataGrafica.push([ "NO HAY DATOS QUE MOSTRAR","[]",0]);
+        tituloGrafica = "NO HAY DATOS";
+    }
     construirGrafica(dataGrafica,tituloGrafica);
     // $("#BTN_ANTERIOR_GRAFICAMODAL").html("Recargar");
 }
