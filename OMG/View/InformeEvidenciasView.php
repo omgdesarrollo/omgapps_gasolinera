@@ -305,12 +305,14 @@ google.charts.load('current', {packages: ['corechart', 'line']});
     var ultimoNumeroGrid = 0;
     var DataGridExcel=[];
     var origenDeDatosVista="informeEvidencias";
+    var listaComboEstaciones;
 
     var activeChart = -1;
     var chartsCreados = [];
     // var chartsFunciones = [()=>{graficar()},(dataNextGrafica,concepto)=>{graficar2(dataNextGrafica,concepto)},(dataNextGrafica,concepto)=>{graficar3(dataNextGrafica,concepto)}];
     // var chartsFunciones = [()=>{graficar()},(dataNextGrafica,concepto)=>{graficar2(dataNextGrafica,concepto)},
     // (dataNextGrafica,concepto)=>{graficar3(dataNextGrafica,concepto)}];
+    var chartsFunciones = [()=>{}];
                 
     var frecuenciaData = [
         {frecuencia:"ANUAL"},

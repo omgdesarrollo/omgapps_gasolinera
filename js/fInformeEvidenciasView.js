@@ -212,6 +212,7 @@ function listarDatos()
                 {
                     growlSuccess("Solicitud","Registros obtenidos");
                     dataListado = data;
+                    crearComboGrafica(data);
                     $.each(data,function (index,value)
                     {
                         __datos.push( reconstruir(value,index+1) );
@@ -233,6 +234,37 @@ function listarDatos()
             }
         });
     });
+}
+
+crearComboGrafica = (data)=>
+{
+    let lista = new Object();
+    let select = $("<select>");
+    let options;
+
+    $.each(data,(index,value)=>{
+        if(lista[value.id_tema]==undefined)
+            lista[value.id_tema]=[];
+        lista[value.id_tema].push(value);
+    });
+    $.each(lista,(index,value)=>{
+        // if()
+        // options = $("<option>",{value:index});
+        options = $("<option>",{value:index});
+        $(options).html(value[0].nombre);
+        $(options)[0]["customData"] = value;
+        $(select).html(options);
+    });
+    options = $("<option>",{value:"1000"});
+    $(options).html("solo");
+    $(options)[0]["customData"] = "";
+    $(select).append(options);
+    $(select).change((obj)=>{
+        objTemp = $(obj.currentTarget).find('option:selected');
+        let data = $(objTemp)[0]["customData"];
+        graficar(data);
+    });
+    $("#graficaComboBox_estacion").html(select);
 }
 
 function mostrarMensajes(msj,num)
@@ -584,7 +616,7 @@ if( value.estatus=="EN PROCESO"){
 // }
 graficarPrincipal = ()=>
 {
-    graficar();
+    // graficar();
 }
 
 graficaLineal = ()=>
@@ -641,7 +673,7 @@ graficaLineal = ()=>
     // }
 }
 
-function graficar()
+function graficar(data)
 {
     chartsCreados = [];
     let validados = 0;
@@ -653,7 +685,7 @@ function graficar()
     let bandera = 0;
     let lista = new Object();
 
-    $.each(dataListado,(index,value)=>{
+    $.each(data,(index,value)=>{
         if(lista[value.id_registro]==undefined)
             lista[value.id_registro]=[];
         lista[value.id_registro].push(value);
@@ -676,7 +708,7 @@ function graficar()
         dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),0]);
     });
 
-    console.log(lista);
+    // console.log(lista);
     
     // if(validados!=0)
     //     dataGrafica.push(["Conforme",validados,">> Evidencias:"+validados.toString(),JSON.stringify(validados_data),1]);

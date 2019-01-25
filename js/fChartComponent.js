@@ -30,6 +30,7 @@ inicializaChartjs = ()=>
         modal +=         '</div>';
 
         modal +=         '<div class="modal-body">';
+        modal +=             '<div id="graficaComboBox_estacion"></div>';
         modal +=             '<div id="graficaPie" ></div>';
         modal +=         '</div>';
         modal +=         '<div class="form-group" method="post" style="text-align:center" id="BTNS_GRAFICAMODAL">';
