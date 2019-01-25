@@ -105,7 +105,7 @@ var myLayout = new dhtmlXLayoutObject({
 			parent: "layout_here",
 			pattern: "2U",
 			cells: [
-				{id: "a", width: 240, text: "Temas"},
+				{id: "a", width: 240, text: "Estaciones de servicio"},
 				{id: "b", text: "Detalles"},
 //                                {id: "c", text: "Detalles"}
 				
@@ -122,7 +122,7 @@ myLayout.cells("a").attachObject("treeboxbox_tree");
 var myToolbar = myLayout.cells("a").attachToolbar({
 			iconset: "awesome",
 			items: [
-                                {id:"agregar", type: "button", text: "Agregar Temas", img: "fa fa-plus-square"},
+                                {id:"agregar", type: "button", text: "Agregar Estación", img: "fa fa-plus-square"},
 				{id:"eliminar", type: "button", text: "Eliminar", img: "fa fa-trash-o"}
 			]
 		});
@@ -294,7 +294,7 @@ myLayout.cells("b").attachObject("contenidoDetalles");
         tempData2="<div class='table-responsive altotablascrollbar'><table class='table table-bordered'><thead><tr class='danger'><th>Datos</th><th>Detalles</th></tr></thead><tbody></tbody>";
                     $.each(data.detalles, function(index,value){
                        tempData2+="<tr><td class='info'>No</td><td contenteditable='true' onClick='showEdit(this)' onBlur=\"saveToDatabase(this,'no',"+value.id_tema+")\">"+value.no+"</td></tr>";
-                       tempData2+="<tr><td class='info'>Tema</td><td contenteditable='true' onClick='showEdit(this)' onBlur=\"saveToDatabase(this,'nombre',"+value.id_tema+")\">"+value.nombre+"</td></tr>";
+                       tempData2+="<tr><td class='info'>Estación de servicio</td><td contenteditable='true' onClick='showEdit(this)' onBlur=\"saveToDatabase(this,'nombre',"+value.id_tema+")\">"+value.nombre+"</td></tr>";
                        tempData2+="<tr><td class='info'>Descripcion</td><td contenteditable='true' onClick='showEdit(this)' onBlur=\"saveToDatabase(this,'descripcion',"+value.id_tema+")\">"+value.descripcion+"</td></tr>";
                        if(level==1)
 //                       tempData2+="<tr><td class='info'>Responsable</td><td>"+value.nombre_empleado+" "+value.apellido_paterno+" "+value.apellido_materno+"</td></tr>";

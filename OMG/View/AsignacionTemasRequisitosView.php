@@ -494,13 +494,6 @@ $(function()
                                 $("#create-itemRegistro .close").click();
                             },1500);
                             obtenerDatosArbol(id_temporal_dinamico_para_los_nodos_del_arbol);
-                            
-                            
-                            
-                            
-                            
-                            
-//                            $("#btn_guardar_reg").removeAttr("disabled")
                             $('#create-itemRegistro .close').click();
                         
                             
@@ -550,12 +543,7 @@ $(function()
          $("#REGISTRO").val("");
      });
      
-     //star agregar otro tipo de producto
-   
-     //end agregar otro tipo de producto 
-     
-     
-     
+
 //     
     var $btnDLtoExcel = $('#toExcel'); 
     $btnDLtoExcel.on('click', function () 
@@ -567,7 +555,6 @@ $(function()
                 __datosExcel.push( reconstruirExcel(value,index+1) );
             });
             DataGridExcel= __datosExcel;
-//            console.log("Entro al excelexportHibrido");
         $("#listjson").excelexportHibrido({
             containerid: "listjson"
             , datatype: 'json'
@@ -576,7 +563,7 @@ $(function()
         });
     });  
 }); 
-<!--CIERRA $FUNCTION-->
+//CIERRA $FUNCTION
 
 function obtenerlistaderegistrossinrepetir(){
 
@@ -593,10 +580,7 @@ function obtenerlistaderegistrossinrepetir(){
                      }));    
                      
                  });
-               <!--$("#REGISTRO").append($('<option>',{-->
-//                    value:"d",
-//                    text:"d"
-//                 }));   
+   
                  
              }
          });
@@ -675,7 +659,7 @@ var myLayout = new dhtmlXLayoutObject({
 			parent: "layout_here",
 			pattern: "3W",
 			cells: [
-				{id: "a", width: 240, text: "Temas"},
+				{id: "a", width: 240, text: "Estaciones de servicio"},
 				{id: "b",   text: "Requisitos-Registros"},
                                 {id: "c", width: 260,text: "Detalles"}
 				
@@ -684,27 +668,14 @@ var myLayout = new dhtmlXLayoutObject({
 
 
 
-// myToolbarExportar = myLayout.cells("a").attachToolbar
-({
-//    iconset: "awesome",
-//    items: [
-//            {id:"toExcel",type: "button", text: "<h5>Exportar</h5>", img: "../../images/base/_excel.png"},
-//    ]
-});
 
-<!--myToolbarExportar.setIconsPath("../../images/base/");-->
-<!--myToolbarExportar.base.id="toExcel";-->
-<!--myToolbarExportar.setIconSize(32);-->
-<!--console.log(myToolbarExportar);-->
- <!--myLayout.cells("a").attachObject("seccionIzquierda");-->
- 
 
 var myToolbar = myLayout.cells("b").attachToolbar
 ({
     iconset: "awesome",
     items: [
             {id:"agregarReq",type: "button", text: "Agregar Requisito", img: "fa fa-save "},
-            {id:"agregar",type: "button", text: "Agregar Registro", img: "fa fa-save "},
+            {id:"agregar",type: "button", text: "Agregar Otro Producto", img: "fa fa-save "},
             {id:"editar",type: "button", text: "Editar Registro", img: "fa fa-edit"},
             {id:"eliminar",type: "button", text: "Eliminar", img: "fa fa-trash-o "}
 
@@ -764,21 +735,12 @@ function evaluarToolbarSeccionB(id)
 //                   }
 //                   else{
                    
-                        if(levelv==1){
-                            
-                            //star sacar los registros existentes
-                      
-                      
-                      
-                      
-                            //end sacar los registros existentes
-                            
-                            
+                        if(levelv==1){               
                             
                             cualModoModalAgregarEdicioRegistro="agregarregistro";
                             obtenerlistaderegistrossinrepetir();
                             $('#create-itemRegistro').modal('show');
-                             $("#textoHeaderRegistro").html("Guardar Registro");
+                             $("#textoHeaderRegistro").html("Guardar Producto");
 
                        }else{
                             swal("","Seleccione un Requisito","error");
@@ -1043,7 +1005,7 @@ console.log("el falso  ",id);
                     {
                         hijo++;
                         cadenaReg=val.registro;
-                        dataArbol.push([hijo,padre,"Registro-"+cadenaReg.substr(0,9)+"...."]);
+                        dataArbol.push([hijo,padre,"Reg-"+cadenaReg.substr(0,9)+"...."]);
                         
 //                        dataIds.push([hijo,val.id_registro,val.registro]);
                          dataIds_reg.push({"hijo":hijo,"id_registro":val.id_registro,"registro":val.registro});
@@ -1078,7 +1040,7 @@ console.log("el falso  ",id);
         tempData2="<div class='table-responsive altotablascrollbar'><table class='table table-bordered'><thead><tr class='danger'><th>Datos</th><th>Detalles</th></tr></thead><tbody></tbody>";
                     $.each(data, function(index,value){
                        tempData2+="<tr><td class='info'>No</td><td>"+value.no+"</td></tr>";
-                       tempData2+="<tr><td class='info'>Tema</td><td>"+value.nombre+"</td></tr>";
+                       tempData2+="<tr><td class='info'>Estación de servicio</td><td>"+value.nombre+"</td></tr>";
                        tempData2+="<tr><td class='info'>Descripcion</td><td>"+value.descripcion+"</td></tr>";
 //                       if(level==1)
                        tempData2+="<tr><td class='info'>Responsable</td><td>"+value.nombre_empleado+" "+value.apellido_paterno+" "+value.apellido_materno+"</td></tr>";

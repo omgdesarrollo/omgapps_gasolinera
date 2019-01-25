@@ -579,9 +579,10 @@ function redimencionarLayout()
                            loadDataSideBarCumplimientosDocumentos();
                         }
                        
-                        if(itemIdSeleccion=="Evidencias"){
+                        if(itemIdSeleccion=="Registros"){
+                            
 //                            ribbon._items["Evidencias"].base.lastElementChild.id="seleccion_informacion_palabra"
-                            ribbon._items["Evidencias"].base.id="seleccion_opcionmenuarriba";
+                            ribbon._items["Registros"].base.id="seleccion_opcionmenuarriba";
                                 loadDataSideBarCumplimientosEvidencias();
                         }
                         
@@ -716,9 +717,9 @@ function limpiarSeleccionDeRibbon(){
                             ribbon._items["Validación"].base.id="";
                             ribbon._items["Validación"].base.lastElementChild.id="";
                         }
-                        if(ribbon._items["Evidencias"]!=undefined){
-                            ribbon._items["Evidencias"].base.id="";
-                            ribbon._items["Evidencias"].base.lastElementChild.id="";
+                        if(ribbon._items["Registros"]!=undefined){
+                            ribbon._items["Registros"].base.id="";
+                            ribbon._items["Registros"].base.lastElementChild.id="";
                         }
                         if(ribbon._items["Informe"]!=undefined){
                               ribbon._items["Informe"].base.id="";
