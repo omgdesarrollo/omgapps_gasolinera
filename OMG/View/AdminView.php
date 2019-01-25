@@ -302,7 +302,7 @@ $Usuario=  Session::getSesion("user");
         { name: "temas",title:"Temas", type: "text", width: 70,editing:false,visible:false},
         { name:"delete", title:"Opción", type:"customControl",sorting:""},
     ];//grid
-    if(window.top.variables_super_globales["cumplimientos"]==true){
+    if(window.top.variables_super_globales["inventarios"]==true){
      estructuraGrid[8].visible=true;
     }  
    

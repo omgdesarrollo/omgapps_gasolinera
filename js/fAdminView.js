@@ -11,10 +11,10 @@ function inicializarFiltros()
             { id: "categoria", title:"Categoria", type: "text"},
             { id: "permisos", title:"Vistas", type: "none"},
             { id: "temas", title:"Temas", type: "none"},
-            { id: "cumplimientos", title:"Contratos", type: "none"},
+            { id: "inventarios", title:"....", type: "none"},
             { id:"opcion",type:"opcion"}
         ];
-         if(window.top.variables_super_globales["cumplimientos"]!=true){
+         if(window.top.variables_super_globales["inventarios"]!=true){
             filtros.splice(6,1); 
          }
        
