@@ -241,6 +241,7 @@ crearComboGrafica = (data)=>
     let lista = new Object();
     let select = $("<select>");
     let options;
+    let primero = 1;
 
     $.each(data,(index,value)=>{
         if(lista[value.id_tema]==undefined)
@@ -248,8 +249,7 @@ crearComboGrafica = (data)=>
         lista[value.id_tema].push(value);
     });
     $.each(lista,(index,value)=>{
-        // if()
-        // options = $("<option>",{value:index});
+        // options = primero==1?$("<option>",{value:index,selected:true}):$("<option>",{value:index});
         options = $("<option>",{value:index});
         $(options).html(value[0].nombre);
         $(options)[0]["customData"] = value;
@@ -260,11 +260,18 @@ crearComboGrafica = (data)=>
     $(options)[0]["customData"] = "";
     $(select).append(options);
     $(select).change((obj)=>{
-        objTemp = $(obj.currentTarget).find('option:selected');
-        let data = $(objTemp)[0]["customData"];
-        graficar(data);
+        changeSelect(obj);
     });
     $("#graficaComboBox_estacion").html(select);
+    changeSelect(select);
+}
+
+changeSelect = (obj)=>
+{
+    objTemp = $(obj.currentTarget)[0]!=undefined? $(obj.currentTarget).find('option:selected') : $(obj).find('option:selected');
+    console.log(objTemp);
+    let data = $(objTemp)[0]["customData"];
+    graficar(data);
 }
 
 function mostrarMensajes(msj,num)
@@ -619,8 +626,10 @@ graficarPrincipal = ()=>
     // graficar();
 }
 
-graficaLineal = ()=>
+graficaLineal = (dataNextGrafica,concepto)=>
 {
+    console.log(dataNextGrafica);
+    console.log(concepto);
     // function drawLineColors() {
     let data = new google.visualization.DataTable();
     let tempData = [];
@@ -681,7 +690,7 @@ function graficar(data)
     let proceso = 0;
     let proceso_data = [];
     let dataGrafica = [];
-    let tituloGrafica = "INFORME DE EVIDENCIAS";
+    let tituloGrafica = "INFORME DE REGISTROS";
     let bandera = 0;
     let lista = new Object();
 
@@ -690,6 +699,7 @@ function graficar(data)
             lista[value.id_registro]=[];
         lista[value.id_registro].push(value);
     });
+
     $.each(lista,(index,value)=>
     {
         let existencia = 0;
@@ -707,6 +717,8 @@ function graficar(data)
         existencia = valTemp.ext_actual;
         dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),0]);
     });
+
+    console.log(dataGrafica);
 
     // console.log(lista);
     
