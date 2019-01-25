@@ -238,38 +238,44 @@ function listarDatos()
 
 crearComboGrafica = (data)=>
 {
-    let lista = new Object();
-    let select = $("<select>");
-    let options;
-    let primero = 1;
+    return new Promise((resolve,reject)=>{
+        let lista = new Object();
+        let select = $("<select>",{id:"comboboxChart"});
+        let options;
+        let primero = 1;
 
-    $.each(data,(index,value)=>{
-        if(lista[value.id_tema]==undefined)
-            lista[value.id_tema]=[];
-        lista[value.id_tema].push(value);
+        $.each(data,(index,value)=>{
+            if(lista[value.id_tema]==undefined)
+                lista[value.id_tema]=[];
+            lista[value.id_tema].push(value);
+        });
+        $.each(lista,(index,value)=>{
+            // options = primero==1?$("<option>",{value:index,selected:true}):$("<option>",{value:index});
+            options = $("<option>",{value:index});
+            $(options).html(value[0].nombre);
+            $(options)[0]["customData"] = value;
+            $(select).html(options);
+        });
+        // options = $("<option>",{value:"1000"});
+        // $(options).html("solo");
+        // $(options)[0]["customData"] = "";
+        // $(select).append(options);
+        $(select).change(()=>{
+            changeSelect();
+        });
+        $("#graficaComboBox_estacion").html(select);
+        // changeSelect(select);
+        resolve();
     });
-    $.each(lista,(index,value)=>{
-        // options = primero==1?$("<option>",{value:index,selected:true}):$("<option>",{value:index});
-        options = $("<option>",{value:index});
-        $(options).html(value[0].nombre);
-        $(options)[0]["customData"] = value;
-        $(select).html(options);
-    });
-    options = $("<option>",{value:"1000"});
-    $(options).html("solo");
-    $(options)[0]["customData"] = "";
-    $(select).append(options);
-    $(select).change((obj)=>{
-        changeSelect(obj);
-    });
-    $("#graficaComboBox_estacion").html(select);
-    changeSelect(select);
 }
 
-changeSelect = (obj)=>
+changeSelect = ()=>
 {
-    objTemp = $(obj.currentTarget)[0]!=undefined? $(obj.currentTarget).find('option:selected') : $(obj).find('option:selected');
-    console.log(objTemp);
+    obj = $("#comboboxChart");
+    // objTemp = $(obj.currentTarget)[0]!=undefined? $(obj.currentTarget).find('option:selected') : $(obj).find('option:selected');
+    console.log(obj);
+    objTemp = $(obj).find('option:selected')
+    // console.log(objTemp);
     let data = $(objTemp)[0]["customData"];
     graficar(data);
 }
@@ -624,12 +630,13 @@ if( value.estatus=="EN PROCESO"){
 graficarPrincipal = ()=>
 {
     // graficar();
+    changeSelect();
 }
 
 graficaLineal = (dataNextGrafica,concepto)=>
 {
-    console.log(dataNextGrafica);
-    console.log(concepto);
+    // console.log(dataNextGrafica);
+    // console.log(concepto);
     // function drawLineColors() {
     let data = new google.visualization.DataTable();
     let tempData = [];
@@ -648,16 +655,6 @@ graficaLineal = (dataNextGrafica,concepto)=>
     data.addColumn('number', 'Existencia');
 
     data.addRows(tempData);
-
-    // data.addRows([
-    //     [new Date(2019, 0, 19), 8000, 0],
-    //     [new Date(2019, 0, 20), 5000, 5000],
-    //     [new Date(2019, 0, 21), 7000, 3000],
-    //     [new Date(2019, 0, 22), 6000, 2000],
-    //     [new Date(2019, 0, 23), 9300, 1200],
-    //     [new Date(2019, 0, 24), 8900, 1700],
-    //     [new Date(2019, 0, 25), 6900, 4000]
-    // ]);
 
     var options = {
         width:700,
@@ -718,7 +715,7 @@ function graficar(data)
         dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),1]);
     });
 
-    console.log(dataGrafica);
+    // console.log(dataGrafica);
 
     // console.log(lista);
     
@@ -738,7 +735,7 @@ function graficar(data)
         tituloGrafica = "NO HAY DATOS";
     }
     construirGrafica(dataGrafica,tituloGrafica);
-    // $("#BTN_ANTERIOR_GRAFICAMODAL").html("Recargar");
+    $("#BTN_ANTERIOR_GRAFICAMODAL").html("Recargar");
 }
 
 function graficar2(temas,concepto)
