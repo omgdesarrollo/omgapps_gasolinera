@@ -665,10 +665,12 @@ graficaLineal = (dataNextGrafica,concepto)=>
             textStyle:{color:"black",fontSize:14,bold:true}
         },
         hAxis: {
-            title: 'Fecha',format: 'd-M-yy'
+            title: 'Fecha',format: 'd-M-yy',
+            textStyle:{color:"black",fontSize:14,bold:true}
         },
         vAxis: {
-            title: 'Gasolina'
+            title: 'Litros',
+            textStyle:{color:"black",fontSize:14,bold:true}
         },
         colors: ['blue', '#097138','red']
     };
