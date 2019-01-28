@@ -478,23 +478,21 @@
                 {frecuencia:"MENSUAL"},
                 {frecuencia:"POR EVENTO"},
                 {frecuencia:"SEMANAL"},
-                
             ];
 
     var estructuraGrid = [
         { name: "id_principal", type: "text",visible:false },
         { name: "validador", type: "text",visible:false },
         { name: "no", title:"No",type: "text", width: 50, editing:false },
-        { name: "nombre",title:"Estación Servicio", type: "text", width: 150, editing:false },
-        { name: "registro",title:"Producto", type: "text", width: 150, editing:false  },
+        { name: "nombre",title:"Estación Servicio", type: "text", width: 140, editing:false },
+        { name: "registro",title:"Producto", type: "text", width: 135, editing:false  },
         { name: "fecha_logica",title:"Fecha Actualización", type: "text", width: 160, editing:false },
-        { name: "nombre_empleado", title:"Usuario", type: "text", width:250, editing:false },
-
-        { name: "ext_anterior", title:"Exist. Anterior (Litros)", type: "text", width: 100, editing:false },
-        { name: "cantidad_comprada",title:"Cant. Comprada (Litros)", type: "text", width: 110, editing:false},
-        { name: "cantidad_vendida",title:"Cant. Vendida (Litros)", type: "text", width: 110, editing:false },
-        { name: "ext_actual",title:"Exist. Actual (Litros)", type: "text", width: 100, editing:false},
-        { name: "corte",title:"Realizar Corte", type: "text", width: 100, editing:false},
+        { name: "nombre_empleado", title:"Usuario", type: "text", width:220, editing:false },
+        { name: "ext_anterior", title:"Exist. Anterior (Litros)", type: "text", width: 120, editing:false },
+        { name: "cantidad_comprada",title:"Cant. Comprada (Litros)", type: "text", width: 120, editing:false},
+        { name: "cantidad_vendida",title:"Cant. Vendida (Litros)", type: "text", width: 120, editing:false },
+        { name: "ext_actual",title:"Exist. Actual (Litros)", type: "text", width: 120, editing:false},
+        { name: "corte",title:"Realizar Corte", type: "text", width: 90, editing:false},
     ];
 
     var customsFieldsGridData=[

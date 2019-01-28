@@ -932,7 +932,7 @@ function reconstruir(value,index)//listo jsgrid
             tempData["ext_anterior"] = value.ext_anterior;
             let corte = $("<button>",{style:"font-size:x-large;color:#39c;background:transparent;border:none;",onclick:"abrirModalCorte(this)"});
             $(corte)[0]["customData"] = value;
-            $(corte).append("<i class='fa fa-dollar' style='font-size: xx-large;color:red;cursor:pointer' aria-hidden='true'></i>");
+            $(corte).append("<i class='fa fa-paper-plane' style='font-size: xx-large;color:#3399CC;cursor:pointer' aria-hidden='true'></i>");
             tempData["corte"] = corte;
         }
 

@@ -226,7 +226,7 @@ estructuraGrid = [
         { name: "nombre",title:"Tema", type: "text",width:180,editing:false},
         { name: "descripcion",title:"Descripcion", type: "text",width:160, editing:false},
         // { name: "descripcion",title:"Descripcion", type: "text",width:160, editTemplate:editTemplateCust,editValue:editvalueCust},
-        { name: "fecha_inicio",title:"Fecha de Inicio", type: "date",editing:true},
+        // { name: "fecha_inicio",title:"Fecha de Inicio", type: "date",editing:true},
         { name: "estado",title:"Registros", type: "text",editing:false},
         { name:"delete", title:"Opción", type:"customControl",sorting:""},
         
