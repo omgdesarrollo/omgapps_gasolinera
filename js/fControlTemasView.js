@@ -42,7 +42,7 @@ function inicializarFiltros()
                 {id:"no",type:"text"},
                 {id:"nombre",type:"text"},
                 {id:"descripcion",type:"text"},
-                {id:"fecha_inicio",type:"date"},
+                // {id:"fecha_inicio",type:"date"},
                 {id:"noneUno",type:"none"},
                 {name:"opcion",id:"opcion",type:"opcion"}
              ];

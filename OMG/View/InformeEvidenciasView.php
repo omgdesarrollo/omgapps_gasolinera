@@ -186,6 +186,8 @@ $Usuario=  Session::getSesion("user");
           <h4 class="modal-title" id="myModalLabel">Archivos Adjuntos</h4>
         </div>
 
+        <button type="button" id="btn_zoom"><i class='fa fa-plus' style='font-size: xx-large;color:red;cursor:pointer' aria-hidden='true'></i></button>
+
         <div class="modal-body">
           <div id="DocumentolistadoUrl"></div>
   
@@ -298,6 +300,13 @@ $Usuario=  Session::getSesion("user");
 //         console.log(event);
 //     });
 // });
+var container = document.getElementById("DocumentolistadoUrl");
+wrapper = document.getElementById("btn_zoom");
+var zoom = 1;
+wrapper.onclick = function (e)
+{
+    zoom *= e.ctrlKey ? 1/1.2 : 1.2; container.style.transform = "scale(" + zoom + ")";
+} 
 
     var DataGrid = [];
     var dataListado = [];
