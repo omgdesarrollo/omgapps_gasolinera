@@ -186,8 +186,6 @@ $Usuario=  Session::getSesion("user");
           <h4 class="modal-title" id="myModalLabel">Archivos Adjuntos</h4>
         </div>
 
-        <button type="button" id="btn_zoom"><i class='fa fa-plus' style='font-size: xx-large;color:red;cursor:pointer' aria-hidden='true'></i></button>
-
         <div class="modal-body">
           <div id="DocumentolistadoUrl"></div>
   
@@ -300,13 +298,32 @@ $Usuario=  Session::getSesion("user");
 //         console.log(event);
 //     });
 // });
-var container = document.getElementById("DocumentolistadoUrl");
-wrapper = document.getElementById("btn_zoom");
+// var container = document.getElementById("DocumentolistadoUrl");
+// wrapper1 = document.getElementById("btn_zoomMas");
+// wrapper2 = document.getElementById("btn_zoomMenos");
 var zoom = 1;
-wrapper.onclick = function (e)
+// wrapper1.onclick = function (e)
+// {
+//     zoom *= 1.1;
+//     container.style.transform = "scale(" + zoom + ")";
+// }
+// wrapper2.onclick = function (e)
+// {
+//     zoom *= 1/1.1;
+//     container.style.transform = "scale(" + zoom + ")";
+// }
+zoomMas = ()=>
 {
-    zoom *= e.ctrlKey ? 1/1.2 : 1.2; container.style.transform = "scale(" + zoom + ")";
-} 
+    zoom *= 1.1;
+    $("#graficaPie").css("transform","scale(" + zoom + ")");
+    // container.style.transform = "scale(" + zoom + ")";
+}
+zoomMenos = ()=>
+{
+    zoom *= 1/1.1;
+    // container.style.transform = "scale(" + zoom + ")";
+    $("#graficaPie").css("transform","scale(" + zoom + ")");
+}
 
     var DataGrid = [];
     var dataListado = [];

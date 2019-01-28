@@ -29,9 +29,11 @@ inicializaChartjs = ()=>
         modal +=             '</button>';
         modal +=             '<h4 class="modal-title" id="myModalLabelNuevaEvidencia">Indicador de Cumplimiento</h4>';
         modal +=         '</div>';
-
-        modal +=         '<div class="modal-body">';
+        modal +=             '<button type="button" class="btn btn-success style-filter" style="padding-left:8px;float:left" onclick="zoomMas()"><i class="fa fa-plus" style="font-size: xx-large;color:white;cursor:pointer" aria-hidden="true"></i></button>';
+        modal +=             '<button type="button" class="btn btn-success style-filter" style="padding-left:8px;float:left" onclick="zoomMenos()"><i class="fa fa-minus" style="font-size: xx-large;color:white;cursor:pointer" aria-hidden="true"></i></button>';
         modal +=             '<div id="graficaComboBox_estacion"></div>';
+        modal +=         '<div class="modal-body">';
+        
         modal +=             '<div id="graficaPie" ></div>';
         modal +=         '</div>';
         // modal +=         '<div class="form-group" method="post" style="text-align:center" id="BTNS_GRAFICAMODAL">';
