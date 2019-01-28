@@ -238,33 +238,46 @@ function listarDatos()
 
 crearComboGrafica = (data)=>
 {
-    let lista = new Object();
-    let select = $("<select>");
-    let options;
+    return new Promise((resolve,reject)=>{
+        let lista = new Object();
+        let select = $("<select>",{id:"comboboxChart"});
+        let options;
+        let primero = 1;
 
-    $.each(data,(index,value)=>{
-        if(lista[value.id_tema]==undefined)
-            lista[value.id_tema]=[];
-        lista[value.id_tema].push(value);
+        $.each(data,(index,value)=>{
+            if(lista[value.id_tema]==undefined)
+                lista[value.id_tema]=[];
+            lista[value.id_tema].push(value);
+        });
+        $.each(lista,(index,value)=>{
+            // options = primero==1?$("<option>",{value:index,selected:true}):$("<option>",{value:index});
+            options = $("<option>",{value:index});
+            $(options).html(value[0].nombre);
+            $(options)[0]["customData"] = value;
+            $(select).html(options);
+        });
+        // options = $("<option>",{value:"1000"});
+        // $(options).html("solo");
+        // $(options)[0]["customData"] = "";
+        // $(select).append(options);
+        $(select).change(()=>{
+            changeSelect();
+        });
+        $("#graficaComboBox_estacion").html(select);
+        // changeSelect(select);
+        resolve();
     });
-    $.each(lista,(index,value)=>{
-        // if()
-        // options = $("<option>",{value:index});
-        options = $("<option>",{value:index});
-        $(options).html(value[0].nombre);
-        $(options)[0]["customData"] = value;
-        $(select).html(options);
-    });
-    options = $("<option>",{value:"1000"});
-    $(options).html("solo");
-    $(options)[0]["customData"] = "";
-    $(select).append(options);
-    $(select).change((obj)=>{
-        objTemp = $(obj.currentTarget).find('option:selected');
-        let data = $(objTemp)[0]["customData"];
-        graficar(data);
-    });
-    $("#graficaComboBox_estacion").html(select);
+}
+
+changeSelect = ()=>
+{
+    obj = $("#comboboxChart");
+    // objTemp = $(obj.currentTarget)[0]!=undefined? $(obj.currentTarget).find('option:selected') : $(obj).find('option:selected');
+    console.log(obj);
+    objTemp = $(obj).find('option:selected')
+    // console.log(objTemp);
+    let data = $(objTemp)[0]["customData"];
+    graficar(data);
 }
 
 function mostrarMensajes(msj,num)
@@ -617,10 +630,13 @@ if( value.estatus=="EN PROCESO"){
 graficarPrincipal = ()=>
 {
     // graficar();
+    changeSelect();
 }
 
-graficaLineal = ()=>
+graficaLineal = (dataNextGrafica,concepto)=>
 {
+    // console.log(dataNextGrafica);
+    // console.log(concepto);
     // function drawLineColors() {
     let data = new google.visualization.DataTable();
     let tempData = [];
@@ -640,16 +656,6 @@ graficaLineal = ()=>
 
     data.addRows(tempData);
 
-    // data.addRows([
-    //     [new Date(2019, 0, 19), 8000, 0],
-    //     [new Date(2019, 0, 20), 5000, 5000],
-    //     [new Date(2019, 0, 21), 7000, 3000],
-    //     [new Date(2019, 0, 22), 6000, 2000],
-    //     [new Date(2019, 0, 23), 9300, 1200],
-    //     [new Date(2019, 0, 24), 8900, 1700],
-    //     [new Date(2019, 0, 25), 6900, 4000]
-    // ]);
-
     var options = {
         width:700,
         height:600,
@@ -659,12 +665,14 @@ graficaLineal = ()=>
             textStyle:{color:"black",fontSize:14,bold:true}
         },
         hAxis: {
-            title: 'Fecha',format: 'd-M-yy'
+            title: 'Fecha',format: 'd-M-yy',
+            textStyle:{color:"black",fontSize:14,bold:true}
         },
         vAxis: {
-            title: 'Gasolina'
+            title: 'Litros',
+            textStyle:{color:"black",fontSize:14,bold:true}
         },
-        colors: ['blue', '#097138']
+        colors: ['blue', '#097138','red']
     };
     var chart = new google.visualization.LineChart(document.getElementById('graficaPie'));
     // graficaPie
@@ -681,7 +689,7 @@ function graficar(data)
     let proceso = 0;
     let proceso_data = [];
     let dataGrafica = [];
-    let tituloGrafica = "INFORME DE EVIDENCIAS";
+    let tituloGrafica = "INFORME DE REGISTROS";
     let bandera = 0;
     let lista = new Object();
 
@@ -690,6 +698,7 @@ function graficar(data)
             lista[value.id_registro]=[];
         lista[value.id_registro].push(value);
     });
+
     $.each(lista,(index,value)=>
     {
         let existencia = 0;
@@ -705,8 +714,10 @@ function graficar(data)
             }
         });
         existencia = valTemp.ext_actual;
-        dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),0]);
+        dataGrafica.push([valTemp.nombre+" "+valTemp.registro,Number(valTemp.ext_actual),">>Existencia Actual: "+valTemp.ext_actual+"(litros)",JSON.stringify(value),1]);
     });
+
+    // console.log(dataGrafica);
 
     // console.log(lista);
     
@@ -715,18 +726,18 @@ function graficar(data)
     // if(proceso!=0)
     //     dataGrafica.push(["No Conforme",proceso,">> Evidencias:"+proceso.toString(),JSON.stringify(proceso_data),1]);
     
-    // $.each(dataGrafica,function(index,value){
-    //     if(value[1] != 0)
-    //         bandera=1;
-    // });
+    $.each(dataGrafica,function(index,value){
+        if(value[1] != 0)
+            bandera=1;
+    });
 
-    // if(bandera == 0)
-    // {
-    //     dataGrafica.push([ "NO EXISTEN EVIDENCIAS",1,"SIN EVIDENCIAS","[]",0]);
-    //     tituloGrafica = "NO EXISTEN EVIDENCIAS";
-    // }
+    if(bandera == 0 || dataGrafica.length==0 )
+    {
+        dataGrafica.push([ "NO HAY DATOS QUE MOSTRAR","[]",0]);
+        tituloGrafica = "NO HAY DATOS";
+    }
     construirGrafica(dataGrafica,tituloGrafica);
-    // $("#BTN_ANTERIOR_GRAFICAMODAL").html("Recargar");
+    $("#BTN_ANTERIOR_GRAFICAMODAL").html("Recargar");
 }
 
 function graficar2(temas,concepto)

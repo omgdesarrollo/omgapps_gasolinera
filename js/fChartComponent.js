@@ -1,4 +1,5 @@
-// google.charts.load('current', {'packages':['corechart']});
+google.charts.load('current', {'packages':['corechart']});
+// google.charts.load('current', {packages: ['corechart', 'line']});
 
 $(function()
 {
@@ -33,9 +34,9 @@ inicializaChartjs = ()=>
         modal +=             '<div id="graficaComboBox_estacion"></div>';
         modal +=             '<div id="graficaPie" ></div>';
         modal +=         '</div>';
-        modal +=         '<div class="form-group" method="post" style="text-align:center" id="BTNS_GRAFICAMODAL">';
-        modal +=             '<button type="submit" id="BTN_ANTERIOR_GRAFICAMODAL" class="btn crud-submit btn-info" style="width:90%" >Recargar</button>';
-        modal +=         '</div>';
+        // modal +=         '<div class="form-group" method="post" style="text-align:center" id="BTNS_GRAFICAMODAL">';
+        // modal +=             '<button type="submit" id="BTN_ANTERIOR_GRAFICAMODAL" class="btn crud-submit btn-info" style="width:90%" >Recargar</button>';
+        // modal +=         '</div>';
         modal +=     '</div>';
         modal += '</div>';
         modal += '</div>';

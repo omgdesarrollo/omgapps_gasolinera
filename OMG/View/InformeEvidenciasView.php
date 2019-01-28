@@ -288,7 +288,9 @@ $Usuario=  Session::getSesion("user");
 
 <script>
 
-google.charts.load('current', {packages: ['corechart', 'line']});
+// google.charts.load('current', {packages: ['corechart', 'line']});
+// google.charts.load('current', {'packages':['corechart']});
+
 // google.charts.setOnLoadCallback(drawLineColors);
 
 // $(function(){
@@ -312,7 +314,7 @@ google.charts.load('current', {packages: ['corechart', 'line']});
     // var chartsFunciones = [()=>{graficar()},(dataNextGrafica,concepto)=>{graficar2(dataNextGrafica,concepto)},(dataNextGrafica,concepto)=>{graficar3(dataNextGrafica,concepto)}];
     // var chartsFunciones = [()=>{graficar()},(dataNextGrafica,concepto)=>{graficar2(dataNextGrafica,concepto)},
     // (dataNextGrafica,concepto)=>{graficar3(dataNextGrafica,concepto)}];
-    var chartsFunciones = [()=>{}];
+    var chartsFunciones = [()=>{},()=>{graficaLineal(dataNextGrafica,concepto)}];
                 
     var frecuenciaData = [
         {frecuencia:"ANUAL"},
