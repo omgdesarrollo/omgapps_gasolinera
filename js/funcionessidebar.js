@@ -391,7 +391,7 @@ function loadDataSideBarOficiosDocumentacion(lista)
                 
                  if(value["nombre"]=="InformeEvidenciasView.php"){
                     if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
-                        listInformes.push({id: "informesEvidencias", text: "Inf. Evidencias", icon: "operaciones.png"});
+                        listInformes.push({id: "informesEvidencias", text: "Estacion", icon: "operaciones.png"});
                     }
                 }
                  if(value["nombre"]=="ConsultasView.php"){
