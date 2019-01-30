@@ -672,10 +672,10 @@ graficaLineal = (dataNextGrafica,concepto)=>
             textStyle:{color:"black",fontSize:14,bold:true},
             gridlines:{
                 count:-1,
-                units:{
-                    days:{format:['MM-dd-yy']},
-                    hours:{format:"none"}
-                }
+                // units:{
+                //     days:{format:['MM-dd-yy']},
+                //     hours:{format:"none"}
+                // }
             }
         },
         vAxis: {
