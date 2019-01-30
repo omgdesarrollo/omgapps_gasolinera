@@ -212,7 +212,8 @@ function listarDatos()
                 {
                     growlSuccess("Solicitud","Registros obtenidos");
                     dataListado = data;
-                    crearComboGrafica(data);
+                    if(data.length>0)
+                        crearComboGrafica(data);
                     $.each(data,function (index,value)
                     {
                         __datos.push( reconstruir(value,index+1) );
