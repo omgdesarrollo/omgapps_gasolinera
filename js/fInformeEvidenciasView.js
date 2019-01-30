@@ -642,7 +642,7 @@ graficaLineal = (dataNextGrafica,concepto)=>
     // function drawLineColors() {
     let data = new google.visualization.DataTable();
     let tempData = [];
-    $.each(dataListado,(index,value)=>
+    $.each(dataNextGrafica,(index,value)=>
     {
         let fecha = value.fecha_fisica.split("-");
         console.log(value);
