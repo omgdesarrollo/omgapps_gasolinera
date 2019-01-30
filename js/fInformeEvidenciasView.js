@@ -669,7 +669,11 @@ graficaLineal = (dataNextGrafica,concepto)=>
         },
         hAxis: {
             title: 'Fecha',format: 'd-M-yy',
-            textStyle:{color:"black",fontSize:14,bold:true}
+            textStyle:{color:"black",fontSize:14,bold:true},
+            gridlines:{
+                count:-1,
+                units:{days:{format:['MM-dd-yy']}}
+            }
         },
         vAxis: {
             title: 'Litros',
