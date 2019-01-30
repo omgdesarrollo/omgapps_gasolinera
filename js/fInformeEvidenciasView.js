@@ -671,7 +671,7 @@ graficaLineal = (dataNextGrafica,concepto)=>
             title: 'Fecha',format: 'd-M-yy',
             textStyle:{color:"black",fontSize:14,bold:true},
             gridlines:{
-                count:-1,
+                count:-1
                 // units:{
                 //     days:{format:['MM-dd-yy']},
                 //     hours:{format:"none"}
