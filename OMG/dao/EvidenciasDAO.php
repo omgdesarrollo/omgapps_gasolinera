@@ -629,4 +629,17 @@ class EvidenciasDAO
                 return -1;
             }
     }
+
+    public function checarFechaCorte($ID_REGISTRO,$FECHA)
+    {
+        try{
+            $query="SELECT COUNT(*) AS total FROM evidencias tbevidencias WHERE tbevidencias.fecha_fisica >= '$FECHA' AND tbevidencias.id_registro = $ID_REGISTRO";
+            $db= AccesoDB::getInstancia();
+            $exito = $db->executeQuery($query);
+            return $exito[0]["total"];
+            } catch (Exception $e){
+                throw $e;
+                return -1;
+            }
+    }
 }

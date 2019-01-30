@@ -1,6 +1,8 @@
 google.charts.load('current', {'packages':['corechart']});
 // google.charts.load('current', {packages: ['corechart', 'line']});
 
+var instanceGrafica;
+
 $(function()
 {
     $("#BTN_ANTERIOR_GRAFICAMODAL").click(function()
@@ -113,6 +115,7 @@ function chartOptions(tituloGrafica)//funcion sin cambio
 function drawChart(dataGrafica,data,options)//funcion sin cambio
 {
     grafica = new google.visualization.PieChart(document.getElementById('graficaPie'));
+    // grafica = new google.visualization.ChartWrapper(document.getElementById('graficaPie'));
     grafica.draw(data, options);
     activeChart++;
     if(activeChart!=0)
@@ -122,6 +125,13 @@ function drawChart(dataGrafica,data,options)//funcion sin cambio
         google.visualization.events.addListener(grafica, 'select', selectChart);
     return grafica;
 }
+
+// changeTam = ()=>
+// {
+//     console.log(instanceGrafica);
+//     instanceGrafica.setOption('width',100);
+//     instanceGrafica.draw();
+// }
 
 function selectChart()
 {

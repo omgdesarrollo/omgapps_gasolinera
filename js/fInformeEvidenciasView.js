@@ -249,12 +249,13 @@ crearComboGrafica = (data)=>
                 lista[value.id_tema]=[];
             lista[value.id_tema].push(value);
         });
+        console.log(lista);
         $.each(lista,(index,value)=>{
             // options = primero==1?$("<option>",{value:index,selected:true}):$("<option>",{value:index});
             options = $("<option>",{value:index});
             $(options).html(value[0].nombre);
             $(options)[0]["customData"] = value;
-            $(select).html(options);
+            $(select).append(options);
         });
         // options = $("<option>",{value:"1000"});
         // $(options).html("solo");
