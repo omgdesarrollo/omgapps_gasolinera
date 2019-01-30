@@ -353,11 +353,18 @@ class EvidenciasModel
         try
         {
             $dao=new EvidenciasDAO();
-            $dao->mandarBegin();
-            $exito = $dao->actualizarUltimo($ID_EVIDENCIA);
-            $exito = $exito>0? $dao->realizarCorte($ID_USUARIO,$FECHA,$CANTIDAD_COMPRADA,$CANTIDAD_VENDIDA,$EXT_ACTUAL,$ID_REGISTRO) : -2;
-            $exito>0? $dao->mandarCommit():$dao->mandarRollback();
-            $lista = $exito>0? $dao->listarEvidencia($exito,$ID_USUARIO):-3;
+            $total = $dao->checarFechaCorte($ID_REGISTRO,$FECHA);
+            $lista;
+            if($total==0)
+            {
+                $dao->mandarBegin();
+                $exito = $dao->actualizarUltimo($ID_EVIDENCIA);
+                $exito = $exito>0? $dao->realizarCorte($ID_USUARIO,$FECHA,$CANTIDAD_COMPRADA,$CANTIDAD_VENDIDA,$EXT_ACTUAL,$ID_REGISTRO) : -2;
+                $exito>0? $dao->mandarCommit():$dao->mandarRollback();
+                $lista = $exito>0? $dao->listarEvidencia($exito,$ID_USUARIO):-3;
+            }
+            else
+                $lista = -4;
             return $lista;
         } catch (Exception $ex)
         {

@@ -999,7 +999,12 @@ realizarCorte = ()=>
                     if(typeof(data)=="object")
                         mandarCorte(data);
                     else
-                        growlError("Error","Ocurrio un error al realizar corte reintente");
+                    {
+                        if(data==-4)
+                            growlError("Error","LA fecha de corte que selecciono ya ha sido registrada");
+                        else
+                            growlError("Error","Ocurrio un error al realizar corte reintente");
+                    }
                 },
                 error:()=>
                 {
