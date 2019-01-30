@@ -442,7 +442,12 @@ class AsignacionTemaRequisitoModel {
             throw $ex;
         }
     }
-    
-    
-    
+    //obtener cantidad de reqisitos por tema 
+   public function cantidadRequiquisitosPorTema(){
+       try{
+           $dao=new AsignacionTemaRequisitoModel();
+           return $dao;
+       }catch (Exception $ex) {           
+       }
+   } 
 }

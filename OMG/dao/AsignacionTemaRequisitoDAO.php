@@ -530,6 +530,17 @@ public function actualizarAsignacionTemaRequisito($id_asignacion_tema_requisito,
             }
         }
     
+        public function cantidadRequiquisitosPorTema($value){
+            try{
+                $query="select  count(*) as cantidaddequisitos from  asignacion_tema_requisito tbasignacion_tema_requisito  where tbasignacion_tema_requisito.ID_TEMA=".$value['id_tema'];
+                $db= AccesoDB::getInstancia();
+                return $db->executeQuery($query);
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+            
+            
+        }
     
     
 }

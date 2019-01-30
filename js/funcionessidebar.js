@@ -238,15 +238,12 @@ function loadDataSideBarOficiosDocumentacion(lista)
                             
     }
     
-    function loadDataSideBarCumplimientosDocumentos(){
-        
-        
+    function loadDataSideBarCumplimientosDocumentos(){    
         consultarInformacion("../Controller/ValidacionDocumentosController.php?Op=Listar");
         $("#sidebarObjV").load('InyectarVistasView.php #validaciondocumentos');                       
     }           
     
-    function loadDataSideBarCumplimientosEvidencias()
-    
+    function loadDataSideBarCumplimientosEvidencias()   
     {
         $("#sidebarObjV").load('InyectarVistasView.php #seguimientoevidencias');
     }
@@ -352,7 +349,6 @@ function loadDataSideBarOficiosDocumentacion(lista)
         width: 350,
         items: listTareas
       });
-
                                  
         mySidebar.attachEvent("onSelect", function(id, value){
                   switch(id){
