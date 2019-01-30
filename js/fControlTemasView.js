@@ -42,7 +42,7 @@ function inicializarFiltros()
                 {id:"no",type:"text"},
                 {id:"nombre",type:"text"},
                 {id:"descripcion",type:"text"},
-                // {id:"fecha_inicio",type:"date"},
+                {id:"fecha_fisica",type:"date"},
                 {id:"noneUno",type:"none"},
                 {name:"opcion",id:"opcion",type:"opcion"}
              ];
@@ -114,18 +114,20 @@ function reconstruir(value,index)
     tempData["no"] = value.no;
     tempData["nombre"] = value.nombre;
     tempData["descripcion"] = value.descripcion;
-    tempData["fecha_inicio"] = [{fecha:value.fecha_inicio,estado:value.estado}];
+    // tempData["fecha_inicio"] = [{fecha:value.fecha_inicio,estado:value.estado}];
+    tempData["fecha_fisica"] = getSinFechaFormato(value.fecha_fisica);
     tempData["estado"] = "<i class='fa ";
     if(value.estado==1)
     {
         tempData["estado"]+= yes+"' style='color:#02ff00;";
-        tempData["id_principal"].push({editar:0});
+        // tempData["id_principal"].push({editar:0});
     }
     else
     {
         tempData["estado"]+= no+"' style='color:red;";
-        tempData["id_principal"].push({editar:1});
+        // tempData["id_principal"].push({editar:1});
     }
+    tempData["id_principal"].push({editar:0});
     tempData["estado"]+= "font-size:xx-large'></i>";
     // tempData["estado"] = value.estado;
     tempData["delete"] = tempData["id_principal"];
