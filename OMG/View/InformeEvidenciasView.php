@@ -365,11 +365,11 @@ zoomMenos = ()=>
         { name: "registro",title:"Registro", type: "text", width: 150, editing:false  },
         { name: "fecha_logica",title:"Fecha Actualización", type: "text", width: 160, editing:false },
         { name: "fecha_fisica",title:"Fecha Corte", type: "text", width: 160, editing:false },
-        { name: "ext_anterior", title:"Exist. Anterior", type: "text", width: 100, editing:false },
-        { name: "cantidad_comprada",title:"Cant. Comprada", type: "text", width: 150, editing:false},
-        { name: "cantidad_vendida",title:"Cant. Vendida", type: "text", width: 110, editing:false },
-        { name: "ext_actual",title:"Exist. Actual", type: "text", width: 100, editing:false},
-        { name: "adjuntos",title:"Adjuntos", type: "text", width: 100, editing:false},
+        { name: "ext_anterior", title:"Exist. Anterior (Litros)", type: "text", width: 120, editing:false },
+        { name: "cantidad_comprada",title:"Cant. Comprada (Litros)", type: "text", width: 120, editing:false},
+        { name: "cantidad_vendida",title:"Cant. Vendida (Litros)", type: "text", width: 120, editing:false },
+        { name: "ext_actual",title:"Exist. Actual (Litros)", type: "text", width: 120, editing:false},
+        { name: "adjuntos",title:"Adjuntos", type: "text", width: 80, editing:false},
     ];
 
     var customsFieldsGridData=[

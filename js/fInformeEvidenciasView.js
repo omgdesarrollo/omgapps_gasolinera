@@ -637,7 +637,7 @@ graficarPrincipal = ()=>
 
 graficaLineal = (dataNextGrafica,concepto)=>
 {
-    console.log(JSON.parse(dataNextGrafica));
+    // console.log(JSON.parse(dataNextGrafica));
     dataNextGrafica = JSON.parse(dataNextGrafica)
     // console.log(concepto);
     // function drawLineColors() {
@@ -650,7 +650,7 @@ graficaLineal = (dataNextGrafica,concepto)=>
         tempData.push([new Date(fecha[0],fecha[1]-1,fecha[2]), Number(value.cantidad_vendida),Number(value.cantidad_comprada),Number(value.ext_actual)]);
     });
 
-    console.log(tempData);
+    // console.log(tempData);
 
     data.addColumn('date', 'x');
     data.addColumn('number', 'Vendida');
@@ -669,7 +669,11 @@ graficaLineal = (dataNextGrafica,concepto)=>
         },
         hAxis: {
             title: 'Fecha',format: 'd-M-yy',
-            textStyle:{color:"black",fontSize:14,bold:true}
+            textStyle:{color:"black",fontSize:14,bold:true},
+            gridlines:{
+                count:-1,
+                units:{days:{format:['MM-dd-yy']}}
+            }
         },
         vAxis: {
             title: 'Litros',
