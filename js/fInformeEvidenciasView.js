@@ -637,7 +637,8 @@ graficarPrincipal = ()=>
 
 graficaLineal = (dataNextGrafica,concepto)=>
 {
-    // console.log(dataNextGrafica);
+    console.log(JSON.parse(dataNextGrafica));
+    dataNextGrafica = JSON.parse(dataNextGrafica)
     // console.log(concepto);
     // function drawLineColors() {
     let data = new google.visualization.DataTable();
