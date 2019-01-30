@@ -21,7 +21,7 @@ class ControlTemasDAO {
             LEFT JOIN evidencias tbevidencias ON tbevidencias.id_registro = tbregistros.id_registro
             JOIN cumplimientos tbcumplimientos ON tbcumplimientos.id_cumplimiento = tbtemas.contrato
             WHERE tbtemas.padre= 0 AND tbtemas.contrato = $CONTRATO AND tbtemas.identificador LIKE '%catalogo%'
-            AND tbevidencias.fecha_fisica != '0000-00-00' order by tbevidencias.fecha_fisica ASC";
+            AND tbevidencias.fecha_fisica != '0000-00-00' order by tbtemas.id_tema, tbevidencias.fecha_fisica ASC";
             
             $db=  AccesoDB::getInstancia();
             $lista=$db->executeQuery($query);
