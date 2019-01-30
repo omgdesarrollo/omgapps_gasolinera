@@ -212,7 +212,8 @@ function listarDatos()
                 {
                     growlSuccess("Solicitud","Registros obtenidos");
                     dataListado = data;
-                    crearComboGrafica(data);
+                    if(data.length>0)
+                        crearComboGrafica(data);
                     $.each(data,function (index,value)
                     {
                         __datos.push( reconstruir(value,index+1) );
@@ -641,7 +642,7 @@ graficaLineal = (dataNextGrafica,concepto)=>
     // function drawLineColors() {
     let data = new google.visualization.DataTable();
     let tempData = [];
-    $.each(dataListado,(index,value)=>
+    $.each(dataNextGrafica,(index,value)=>
     {
         let fecha = value.fecha_fisica.split("-");
         console.log(value);
