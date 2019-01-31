@@ -223,7 +223,7 @@ var objFieldEdit="";
 estructuraGrid = [
 //        { name: "id_principal",visible:false},
         { name:"no",title:"No Tema",width:40,editing:false},
-        { name: "nombre",title:"Tema", type: "text",width:180,editing:false},
+        { name: "nombre",title:"Estaciones", type: "text",width:180,editing:false},
         { name: "descripcion",title:"Descripcion", type: "text",width:160, editing:false},
         // { name: "descripcion",title:"Descripcion", type: "text",width:160, editTemplate:editTemplateCust,editValue:editvalueCust},
         { name: "fecha_fisica",title:"Fecha de Inicio", type: "text",editing:false},
