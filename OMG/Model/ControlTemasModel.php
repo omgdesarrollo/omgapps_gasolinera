@@ -15,6 +15,7 @@ class ControlTemasModel {
             $bandera = 1;
             $bandera2 = 0;
             $id=0;
+            //estos ciclos deben cambiar, comprar con undefined para los index
             foreach($lista2 as $key => $value)
             {
                 if($bandera==1)
