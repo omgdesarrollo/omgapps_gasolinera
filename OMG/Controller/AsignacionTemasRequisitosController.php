@@ -75,7 +75,7 @@ switch ($Op) {
             header('Content-type: application/json; charset=utf-8'); 
             echo json_encode($Lista);
             return $Lista;
-            break;
+        break;
         case 'EdicionNodo':
             
             $data=array("id_registro"=>$_REQUEST["ID_REGISTRO"],"registro"=>$_REQUEST["REGISTRO"],"id_documento"=>$_REQUEST["ID_DOCUMENTO"],"frecuencia"=>$_REQUEST["FRECUENCIA"]);
@@ -92,7 +92,7 @@ switch ($Op) {
             
             return $Lista;
             
-            break;
+        break;
         
         case 'detalles':
            $id= $_REQUEST["id"];
@@ -108,22 +108,19 @@ switch ($Op) {
                      echo json_encode(array("validado_documento_responsable_or_evidenciascargadas"=>"se_encuentra_validado_o_ahy_evidencias"));
                 }    
            }else{     
-                $lista=$model->obtenerDetallesHidrid($id,$tipo);
-               
-               
-               
+                $lista=$model->obtenerDetallesHidrid($id,$tipo);   
            }
         break;
 
 
-	case 'Modificar':
-		# code...
+		case 'Modificar':
+			# code...
 
-            $model->actualizarPorColumna($_REQUEST["column"],$_REQUEST["editval"],$_REQUEST["id"] );
+				$model->actualizarPorColumna($_REQUEST["column"],$_REQUEST["editval"],$_REQUEST["id"] );
 
-                break;
+		break;
 
-	case 'EliminarRegistro':
+		case 'EliminarRegistro':
 		# code...
             
             $Lista= $model->eliminarNodoRegistro($_REQUEST['ID_REGISTRO']);
@@ -133,7 +130,6 @@ switch ($Op) {
             
         case 'EliminarRequisito':
 		# code...
-            
             $Lista= $model->eliminarNodoRequisito($_REQUEST['ID_REQUISITO']);
             echo $Lista;
 		break;
@@ -154,7 +150,7 @@ switch ($Op) {
             echo json_encode($Lista);
         break;
     
-	default:
+		default:
 		# code...
 		break;
 }

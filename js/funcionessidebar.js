@@ -238,15 +238,12 @@ function loadDataSideBarOficiosDocumentacion(lista)
                             
     }
     
-    function loadDataSideBarCumplimientosDocumentos(){
-        
-        
+    function loadDataSideBarCumplimientosDocumentos(){    
         consultarInformacion("../Controller/ValidacionDocumentosController.php?Op=Listar");
         $("#sidebarObjV").load('InyectarVistasView.php #validaciondocumentos');                       
     }           
     
-    function loadDataSideBarCumplimientosEvidencias()
-    
+    function loadDataSideBarCumplimientosEvidencias()   
     {
         $("#sidebarObjV").load('InyectarVistasView.php #seguimientoevidencias');
     }
@@ -352,7 +349,6 @@ function loadDataSideBarOficiosDocumentacion(lista)
         width: 350,
         items: listTareas
       });
-
                                  
         mySidebar.attachEvent("onSelect", function(id, value){
                   switch(id){
@@ -460,7 +456,7 @@ var listAjusteUsuarios=[];
                     if(window.top.variables_super_globales["inventarios"]==true){
 //console.log("aqui esta",window.top.variables_super_globales["cumplimientos"]);
                         if(value["consult"]=="true" ||value["delete"]=="true" ||value["edit"]=="true" ||value["new"]=="true" ){
-                            listAjusteUsuarios.push( {id: "control", text: "Control de Temas", icon: "controlTemas.png"});
+                            listAjusteUsuarios.push( {id: "control", text: "Control de estaciones", icon: "controlTemas.png"});
                         }
                     }
                     

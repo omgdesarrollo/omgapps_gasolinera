@@ -868,7 +868,7 @@ function evaluarToolbarSeccionB(id)
 //                    alert("Este es el data: "+data)
                     if(data==0)
                     {    
-                    swal("","El Registro esta cargado en Evidencias","error");
+                    swal("","Ya tiene una existencia","error");
                     setTimeout(function(){swal.close();},1500);
                     }
                 }    

@@ -346,10 +346,21 @@ class AsignacionTemaRequisitoModel {
             
             $evidencia= $dao->obtenerRegistrodeEvidencia($ID_REGISTRO);
             
-            if($evidencia==0)
+			if($evidencia==0){
+				$exito=0;
+				//echo "no es null ";
+			}else{
+				//echo "si encontro null   entonces obtiene 1 y si se puede eliminar";
+				$exito= 1;
+				$dao->eliminarEvidenciaPorIdDeRegistro(array("id_registro"=>$ID_REGISTRO));
+				$dao->eliminarNodoRegistro($ID_REGISTRO);
+				
+			}
+			
+            /*if($evidencia==0)
             {
                 $exito= $dao->eliminarNodoRegistro($ID_REGISTRO);
-            }
+            }*/
             
             return $exito;
 //            echo "Este es el valor: ".json_encode($exito);            
@@ -442,7 +453,12 @@ class AsignacionTemaRequisitoModel {
             throw $ex;
         }
     }
-    
-    
-    
+    //obtener cantidad de reqisitos por tema 
+   public function cantidadRequiquisitosPorTema(){
+       try{
+           $dao=new AsignacionTemaRequisitoModel();
+           return $dao;
+       }catch (Exception $ex) {           
+       }
+   } 
 }
