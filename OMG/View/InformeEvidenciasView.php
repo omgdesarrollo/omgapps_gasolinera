@@ -360,7 +360,7 @@ zoomMenos = ()=>
     var estructuraGrid = [
         { name: "id_principal", type: "text",visible:false },
         { name: "no", title:"No",type: "text", width: 50, editing:false },
-        { name: "nombre",title:"Tema", type: "text", width: 150, editing:false },
+        { name: "nombre",title:"Estación", type: "text", width: 150, editing:false },
         { name: "nombre_empleado", title:"Usuario", type: "text", width:250, editing:false },
         { name: "registro",title:"Registro", type: "text", width: 150, editing:false  },
         { name: "fecha_logica",title:"Fecha Actualización", type: "text", width: 160, editing:false },
