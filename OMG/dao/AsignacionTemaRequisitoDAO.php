@@ -403,10 +403,14 @@ public function actualizarAsignacionTemaRequisito($id_asignacion_tema_requisito,
     {
         try
         {
-            $query="SELECT COUNT(*) AS resultado
+            /*$query="SELECT COUNT(*) AS resultado
                     FROM evidencias tbevidencias
                     WHERE tbevidencias.id_registro=$ID_REGISTRO";
-            
+            */
+              $query="SELECT COUNT(*) AS resultado
+                      FROM evidencias tbevidencias
+                      WHERE tbevidencias.id_registro=$ID_REGISTRO and tbevidencias.EXT_ANTERIOR IS NULL";
+
             $db= AccesoDB::getInstancia();
             $lista=$db->executeQuery($query);
         return $lista[0]['resultado'];
@@ -541,6 +545,16 @@ public function actualizarAsignacionTemaRequisito($id_asignacion_tema_requisito,
             
             
         }
+		
+		public function eliminarEvidenciaPorIdDeRegistro($value){
+			try{
+                $query="delete from evidencias where evidencias.id_registro=".$value["id_registro"];
+                $db= AccesoDB::getInstancia();
+                return $db->executeQueryUpdate($query);
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+		}
     
     
 }
