@@ -362,7 +362,7 @@ zoomMenos = ()=>
         { name: "no", title:"No",type: "text", width: 50, editing:false },
         { name: "nombre",title:"Estación", type: "text", width: 150, editing:false },
         { name: "nombre_empleado", title:"Usuario", type: "text", width:250, editing:false },
-        { name: "registro",title:"Registro", type: "text", width: 150, editing:false  },
+        { name: "registro",title:"Producto", type: "text", width: 150, editing:false  },
         { name: "fecha_logica",title:"Fecha Actualización", type: "text", width: 160, editing:false },
         { name: "fecha_fisica",title:"Fecha Corte", type: "text", width: 160, editing:false },
         { name: "ext_anterior", title:"Exist. Anterior (Litros)", type: "text", width: 120, editing:false },
